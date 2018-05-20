@@ -21,7 +21,13 @@ public class GameControl : MonoBehaviour {
     // ui elements that this affects
     GameObject repeat, dialogue;
     Image image;
-    GameObject questionPanel;
+    GameObject questionPanel, textInput, qrInput;
+    // flags and variables
+    public bool isWrong = false;
+    
+
+
+
 
     public int getIndex() { return index; }
     public void setIndex(int i) { index = i; }
@@ -54,22 +60,24 @@ public class GameControl : MonoBehaviour {
             team = 0;
             Debug.Log("Hard coded team to be 0");
         }
-        // load data
+        // load data from file
         events = JsonUtility.FromJson<GameEventCollection>(getJSON(ref flowFilename));
         // load reapeat UI btn
         Transform canvas = GameObject.Find("Canvas").transform;
         repeat = canvas.GetChild(4).gameObject;
         Debug.Assert(repeat.name == "repeat btn");
+        // get dialogue elements
         Transform ssGrp = canvas.GetChild(1).gameObject.transform;
         dialogue = ssGrp.GetChild(2).gameObject;
         image = ssGrp.GetChild(1).gameObject.GetComponent<Image>();
-        Debug.Log("image = " + image.name);
         Debug.Assert(dialogue.name == "ss text");
+        // get question elements
         questionPanel = GameObject.Find("question panel");
         questionPanel.SetActive(false);
+        textInput = questionPanel.transform.GetChild(0).gameObject;
+        qrInput = questionPanel.transform.GetChild(1).gameObject;
         // set ui to first event
         setUIElements();
-        //Debug.Assert(image.name == "ss image");
     }
 
     // initialization that enforces singleton and loads data
@@ -95,12 +103,18 @@ public class GameControl : MonoBehaviour {
     // using the index set the text and image elements 
     public void setUIElements()
     {
-        dialogue.GetComponent<TextMeshProUGUI>().SetText(events.get(index).text);
+        setDialogue(events.get(index).text);
         // if need to change image
         if (image.sprite.name != events.get(index).image)
         {
             image.sprite = Resources.Load<Sprite>("CharImages/" + events.get(index).image);
         }        
+    }
+
+    // helper that sets char dialogue to input
+    public void setDialogue(string input)
+    {
+        dialogue.GetComponent<TextMeshProUGUI>().SetText(input);
     }
 
     // used to turn repeat btn off or on
@@ -109,10 +123,21 @@ public class GameControl : MonoBehaviour {
         repeat.SetActive(!repeat.activeSelf);
     }
 
+    // this function deals with qr questions and is dealt with inside vuforia's DefaultTrackableEventHandler
+    public void handleQRQuestion(string input)
+    {
+
+    }
+
     // try and move to next event in queue
     public void nextEvent()
     {
-        Debug.Log("Clicked btn");
+        // if a wrong answer was given and then clicked, show question again
+        if (isWrong)
+        {
+            setDialogue(events.get(index).text);
+            isWrong = false;
+        }
         if (index < 0) { index = 0; }
         else if (events.get(index).type == "dialogue")
         {
@@ -127,13 +152,10 @@ public class GameControl : MonoBehaviour {
                 // show answer boxes according to event
                 switch (events.get(index).type)
                 {
-                    case "number question":
-                        Debug.Log("num question");
-                        
-                        break;
+                    // for each event set required element to active
                     case "text question":
                         Debug.Log("text question");
-                       
+                        textInput.SetActive(true);
                         break;
                     case "cite question":
                         Debug.Log("cite question");

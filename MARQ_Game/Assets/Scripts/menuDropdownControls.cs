@@ -78,6 +78,11 @@ public class menuDropdownControls : MonoBehaviour {
             // set repeat to inactive
             GameControl.control.toggleRepeat();
         }
+        else // if wrong give wrong answer text
+        {
+            GameControl.control.setDialogue(GameControl.control.getEvent(GameControl.control.getIndex()).wrong);
+            GameControl.control.isWrong = true;
+        }
 
     }
 

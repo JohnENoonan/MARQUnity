@@ -19,6 +19,7 @@ public class GameEvent
     public bool validateAnswer(string input)
     {
         input = input.ToLower();
+        answer = answer.ToLower();
         // get all possible answers
         string[] answers = answer.Split(new[] { "||" }, StringSplitOptions.None);
         foreach(string ans in answers)
