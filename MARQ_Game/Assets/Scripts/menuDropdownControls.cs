@@ -10,7 +10,7 @@ public class menuDropdownControls : MonoBehaviour {
 
 	// init dropPanel 
 	void Awake () {
-        GameObject tempobj = gameObject.transform.GetChild(2).gameObject;
+        GameObject tempobj = gameObject.transform.GetChild(3).gameObject;
         Debug.Log("menubar = " + tempobj.name);
         dropPanel = tempobj.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
         Debug.Log("panel = " + dropPanel.name);
