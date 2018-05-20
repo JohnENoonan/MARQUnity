@@ -21,7 +21,7 @@ public class GameControl : MonoBehaviour {
     // ui elements that this affects
     GameObject repeat, dialogue;
     Image image;
-
+    GameObject questionPanel;
 
     public int getIndex() { return index; }
     public void setIndex(int i) { index = i; }
@@ -65,6 +65,8 @@ public class GameControl : MonoBehaviour {
         image = ssGrp.GetChild(1).gameObject.GetComponent<Image>();
         Debug.Log("image = " + image.name);
         Debug.Assert(dialogue.name == "ss text");
+        questionPanel = GameObject.Find("question panel");
+        questionPanel.SetActive(false);
         // set ui to first event
         setUIElements();
         //Debug.Assert(image.name == "ss image");
@@ -85,19 +87,26 @@ public class GameControl : MonoBehaviour {
         loadData();
     }
 
+    public bool validateAnswer(string input)
+    {
+        return events.get(index).validateAnswer(input);
+    }
+
     // using the index set the text and image elements 
     public void setUIElements()
     {
         dialogue.GetComponent<TextMeshProUGUI>().SetText(events.get(index).text);
         // if need to change image
-        Debug.Log("currimage is \"" + image.name + "\" which should become \"" + events.get(index).image + "\"");
-        if (image.name != events.get(index).image)
+        if (image.sprite.name != events.get(index).image)
         {
             image.sprite = Resources.Load<Sprite>("CharImages/" + events.get(index).image);
-        }
-        else { Debug.Log("if was false"); }
-        
-        
+        }        
+    }
+
+    // used to turn repeat btn off or on
+    public void toggleRepeat()
+    {
+        repeat.SetActive(!repeat.activeSelf);
     }
 
     // try and move to next event in queue
@@ -114,6 +123,7 @@ public class GameControl : MonoBehaviour {
             {
                 // show repeat dialogue option
                 repeat.SetActive(true);
+                questionPanel.SetActive(true);
                 // show answer boxes according to event
                 switch (events.get(index).type)
                 {
@@ -134,39 +144,6 @@ public class GameControl : MonoBehaviour {
                 }
             }
         }
-        /*
-         * next(){
-            if (this.index < 0){
-              this.index = 0;
-            }
-            // if on dialogue can just move on
-            else if (this.getType() == "dialogue"){
-              this.index++;
-              // if current is not dialogue
-              if (this.getType() != "dialogue"){
-                //give option to repeat dialogue
-                
-                // creat appropriate forms
-                switch(this.getType()){
-                  case "number question":
-                    console.log("num question");
-                    this.handleNumberQ();
-                    break;
-                  case "text question":
-                    console.log("text question");
-                    this.handleTextQ();
-                    break;
-                  case "cite question":
-                    console.log("cite question");
-                    break;
-                  case "qr question":
-                    console.log("qr question");
-                    break;
-                }
-              }
-            }
-          }
-         */
     }
 
 }

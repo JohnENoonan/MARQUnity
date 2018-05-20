@@ -20,10 +20,11 @@ public class GameEvent
     {
         input = input.ToLower();
         // get all possible answers
-        string[] answers = input.Split(new[] { "||" }, StringSplitOptions.None);
-        foreach(string answer in answers)
+        string[] answers = answer.Split(new[] { "||" }, StringSplitOptions.None);
+        foreach(string ans in answers)
         {
-            if (answer == input) // if answers match it is a correct solution
+            Debug.Log("comparing input: " + input + " to answer: " + ans);
+            if (ans == input) // if answers match it is a correct solution
             {
                 return true; 
             }
