@@ -21,7 +21,7 @@ public class menuDropdownControls : MonoBehaviour {
     {
         dropPanel.SetActive(!dropPanel.activeSelf);
     }
-	
+	// onclick camera btn
     public void gotoCamera()
     {
         // start vuforia
@@ -29,6 +29,24 @@ public class menuDropdownControls : MonoBehaviour {
         // go to camera scene
         SceneManager.LoadScene("cameraScene");
     }
-	
+    // onclick repeat btn
+    public void repeatDialogue()
+    {
+        int i = GameControl.control.getIndex();
+        while (i > 0) // find first instance of not dialogue
+        {
+            i--;
+            if (GameControl.control.getEvent(i).type != "dialogue")
+            {
+                break;
+            }
+        }
+        if (i != 0) { i++; } // move one past to get to dialogue
+        // update content
+        GameControl.control.setIndex(i);
+        GameControl.control.setUIElements();
+        // repeat btn is hidden on click from built in
+    }
+
 
 }

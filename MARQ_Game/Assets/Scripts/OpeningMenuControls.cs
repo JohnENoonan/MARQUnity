@@ -9,8 +9,9 @@ public class OpeningMenuControls : MonoBehaviour {
     // call on play btn
 	public void playGame()
     {
-        GameControl.control.team = GameObject.Find("Dropdown").GetComponent<Dropdown>().value;
-        Debug.Log("set team to: " + GameControl.control.team);
+        int team = GameObject.Find("Dropdown").GetComponent<Dropdown>().value;
+        Debug.Log("set team to: " + team);
+        PlayerPrefs.SetInt("team", team); // write team to playerprefs
         // load next scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
