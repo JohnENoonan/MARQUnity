@@ -94,7 +94,8 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
         foreach (var component in canvasComponents)
             component.enabled = true;
 
-        Debug.Log("Mother fucking found " + mTrackableBehaviour.TrackableName + "!!!!");
+        // when an image is found deal with it according to GameControl
+        GameControl.control.handleQRQuestion(mTrackableBehaviour.TrackableName);
     }
 
 
