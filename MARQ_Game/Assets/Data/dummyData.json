@@ -10,7 +10,7 @@
 			"text": "text2"
 		},
 		{
-			"type": "number question",
+			"type": "text question",
 			"image": "servoss_default",
 			"text": "How many steps are there in forming a research question?",
 			"answer": "4",
