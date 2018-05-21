@@ -19,6 +19,9 @@ public class GameEvent
     public bool validateAnswer(string input)
     {
         input = input.ToLower();
+        Debug.Log("validate recieved: " + input);
+        Debug.Log("type: " + input.GetType());
+        Debug.Assert(answer != null);
         answer = answer.ToLower();
         // get all possible answers
         string[] answers = answer.Split(new[] { "||" }, StringSplitOptions.None);

@@ -22,7 +22,6 @@ public class menuDropdownControls : MonoBehaviour {
         //Debug.Log("panel = " + dropPanel.name);
         // get question elements
         questionPanel = gameObject.transform.GetChild(5).gameObject;
-        Debug.Log(questionPanel.name);
         textInput = questionPanel.transform.GetChild(0).gameObject;
         Debug.Assert(textInput.name == "textInput");
     }
@@ -31,12 +30,20 @@ public class menuDropdownControls : MonoBehaviour {
     public void toggleMenuPanel()
     {
         dropPanel.SetActive(!dropPanel.activeSelf);
+        GameObject dropbtn = dropPanel.transform.parent.gameObject;
     }
 	// onclick camera btn
     public void gotoCamera()
     {
+        //Debug.Log(Camera.main.name +" : " + Camera.main.depth);
+        //Camera.main.enabled = false;
+        
         // start vuforia
         VuforiaRuntime.Instance.InitVuforia();
+        // write needed data
+        PlayerPrefs.SetInt("index", GameControl.control.getIndex());
+        // set main to inactive
+        GameControl.control.gameObject.SetActive(false);
         // go to camera scene
         SceneManager.LoadScene("cameraScene");
     }

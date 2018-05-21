@@ -93,9 +93,6 @@ public class DefaultTrackableEventHandler : MonoBehaviour, ITrackableEventHandle
         // Enable canvas':
         foreach (var component in canvasComponents)
             component.enabled = true;
-
-        // when an image is found deal with it according to GameControl
-        GameControl.control.handleQRQuestion(mTrackableBehaviour.TrackableName);
     }
 
 

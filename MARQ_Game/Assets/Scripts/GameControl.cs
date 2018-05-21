@@ -21,9 +21,11 @@ public class GameControl : MonoBehaviour {
     // ui elements that this affects
     GameObject repeat, dialogue;
     Image image;
-    GameObject questionPanel, textInput, qrInput;
+    GameObject questionPanel, textInput, qrInput, badgeCount;
     // flags and variables
     public bool isWrong = false;
+    int answerIndex; // index of the question that needs to be answered
+    List<string> badges;
     
 
 
@@ -71,11 +73,17 @@ public class GameControl : MonoBehaviour {
         dialogue = ssGrp.GetChild(2).gameObject;
         image = ssGrp.GetChild(1).gameObject.GetComponent<Image>();
         Debug.Assert(dialogue.name == "ss text");
+        // get counter element
+        badgeCount = canvas.GetChild(0).transform.GetChild(2).transform.GetChild(1).
+                              transform.GetChild(1).gameObject;
+        Debug.Assert(badgeCount.name == "counter");
         // get question elements
         questionPanel = GameObject.Find("question panel");
         questionPanel.SetActive(false);
         textInput = questionPanel.transform.GetChild(0).gameObject;
         qrInput = questionPanel.transform.GetChild(1).gameObject;
+        // init private variables
+        badges = new List<string>();
         // set ui to first event
         setUIElements();
     }
@@ -83,16 +91,46 @@ public class GameControl : MonoBehaviour {
     // initialization that enforces singleton and loads data
 	void Awake () {
         // enforce singleton
-		if (control == null)
+        if (control == null)
         { // if this instance is the first
-            DontDestroyOnLoad(gameObject);
+            Debug.Log("Made the one and only version of GameControl");
             control = this;
+            PlayerPrefs.SetInt("index", 0);
+            loadData();
         }
         else if (control != this)
         { // if object is not the one destroy it
+            Debug.Log("Going to destroy this");
             Destroy(gameObject);
+            //control.events.printContents();
+            //setUIElements();
+        }        
+        DontDestroyOnLoad(gameObject);
+    }
+
+    // when this is enabled save anything that came from camera scene
+    void OnEnable()
+    {
+        // set values
+        if (PlayerPrefs.HasKey("index"))
+        {
+            Debug.Log("index is: " + PlayerPrefs.GetString("index"));
+            index = PlayerPrefs.GetInt("index");
+            PlayerPrefs.DeleteKey("index");
         }
-        loadData();
+        // set received badges
+        if (PlayerPrefs.HasKey("received"))
+        {
+            Debug.Log("has received badges");
+            addBadges(PlayerPrefs.GetString("received"));
+            PlayerPrefs.DeleteKey("received");
+        }
+        if (PlayerPrefs.HasKey("correct"))
+        {
+            handleQRAnswer();
+            PlayerPrefs.DeleteKey("correct");
+        }
+        setUIElements();
     }
 
     public bool validateAnswer(string input)
@@ -108,7 +146,9 @@ public class GameControl : MonoBehaviour {
         if (image.sprite.name != events.get(index).image)
         {
             image.sprite = Resources.Load<Sprite>("CharImages/" + events.get(index).image);
-        }        
+        }
+        // update badge count
+        badgeCount.GetComponent<TMP_Text>().text = badges.Count.ToString() + "/10";
     }
 
     // helper that sets char dialogue to input
@@ -117,16 +157,68 @@ public class GameControl : MonoBehaviour {
         dialogue.GetComponent<TextMeshProUGUI>().SetText(input);
     }
 
+    public void addBadges(string set)
+    {
+        string[] received = set.Split('|');
+        foreach(string newBadge in received)
+        {
+            if (newBadge == "")
+            {
+                continue;
+            }
+            bool doAdd = true;
+            Debug.Log("Trying to add badge: " + newBadge);
+            foreach(string badge in badges)
+            {
+                if (newBadge == badge) {
+                    doAdd = false;
+                    break;
+                }
+            }
+            if (doAdd)
+            {
+                badges.Add(newBadge);
+            }
+            
+        }
+
+        foreach (string badge in badges)
+        {
+            Debug.Log("badge in badges: " + badge);
+        }
+
+
+    }
+
     // used to turn repeat btn off or on
     public void toggleRepeat()
     {
         repeat.SetActive(!repeat.activeSelf);
     }
 
-    // this function deals with qr questions and is dealt with inside vuforia's DefaultTrackableEventHandler
-    public void handleQRQuestion(string input)
+    public void handleQRAnswer()
     {
+        // if they go the correct QR code
+        if (PlayerPrefs.GetInt("correct") == 1)
+        {
+            index++; // move to next event
+            setUIElements();
+            toggleRepeat();
+            qrInput.SetActive(false);
+        }
+        else
+        {
+            isWrong = true;
+            setDialogue(getEvent(index).wrong);
+        }
+    }
 
+    // this function deals with qr questions and is dealt with inside vuforia's DefaultTrackableEventHandler
+    public void handleQRQuestion()
+    {
+        index = answerIndex;
+        setUIElements();
+        PlayerPrefs.SetString("answer", control.getEvent(index).answer);
     }
 
     // try and move to next event in queue
@@ -162,6 +254,9 @@ public class GameControl : MonoBehaviour {
                         break;
                     case "qr question":
                         Debug.Log("qr question");
+                        qrInput.SetActive(true);
+                        answerIndex = index;
+                        handleQRQuestion();
                         break;
                 }
             }

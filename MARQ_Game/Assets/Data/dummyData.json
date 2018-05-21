@@ -37,7 +37,7 @@
 			"type": "qr question",
 			"image": "servoss_default",
 			"text": "Can you find my thesis?",
-			"answer": "4",
+			"answer": "70_target",
 			"wrong": "I don't think that is what I meant, try and find it somewhere else"
 		},
 		{
@@ -47,7 +47,7 @@
 		},
 		{
 			"type": "cite question",
-			"image": "media/wells_default",
+			"image": "wells_default",
 			"text": "On the main page, go to the ‘Citation/Copyright’ tab, and go to the ‘Citation and Style Guides’ section. Using this style guide and your searching skills to find an article from the New York Times called “How Bad Is Your Air-Conditioner for the Planet?” on the library database, and give me the citation in APA format.",
 			"answer": {
 				"author first initial": "T",
