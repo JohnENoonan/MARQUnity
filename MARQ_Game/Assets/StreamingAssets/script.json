@@ -1,0 +1,334 @@
+{
+	"Items": [{
+			"type": "dialogue",
+			"image": "provost_default",
+			"text": "Welcome! You will begin your learning at Rensselaer here, at Folsom library. Important discoveries begin with thorough research, and we expect high-quality research from our students."
+		},
+		{
+			"type": "dialogue",
+			"image": "provost_default",
+			"text": "Folsom library has access to over 200 research databases and more than 570,000 books and e-books.  With millions more resources available, you will be able to find what you need, but only if you know how to look."
+		},
+		{
+			"type": "dialogue",
+			"image": "provost_default",
+			"text": "You will be guided on your journey today by former RPI alumni – we call them ‘Super Searchers’.  With their help you can answer the challenge question:  Where is New York State in Folsom Library?  It’s time to start your quest for knowledge so that you, too, can make your MARQ at RPI!"
+		},
+		{
+			"type": "dialogue",
+			"image": "provost_default",
+			"text": "Did you know one of the first university libraries, the al-Qarawiyyin, in Fez, Morocco, is also part of the world's oldest continually operating universities, al-Qarawiyyin University, which opened in 859?"
+		},
+		{
+			"type": "dialogue",
+			"image": "provost_default",
+			"text": "If you can find the description of RPI’s first library, you will find the first Super Searcher…"
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "Good day! Let me introduce you to MARQ. Who or what is MARQ, you might ask? Well, MARQ is a Metaliteracy Augmented Reality Quest game that uses “QR” codes to advance you through the game as you learn to conduct research within these library walls and beyond! And I am Samuel Wells Williams, an RPI alumnus, and your quest leader."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "MARQ uses QR codes for both required quest objects and extra information. All necessary QR codes will have ______ borders. Badges will be accessible from QR codes with ______ borders."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "To take a picture of the QR code, press the camera button on screen…"
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "In the menu bar is a map button, press it and a map of the entire library appears!"
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "You can toggle between the floors you want to look at, just remember, you entered the building on the 2nd Floor."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "You are here…and about to embark on your quest to find New York State in the library."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "Myself, and three other RPI alumni super searchers, will give you hints to find New York State, but you must prove yourself to be adept researchers first!"
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "You have a book where you can store collectable badges."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "The puzzle piece in the menu bar will lead you to your story clues."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "But, before I let you loose, let’s take a brief tour of the RPI library website. First, let’s find a computer terminal and sign in."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "Good. Now, go to library.rpi.edu."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "On the homepage there is a search bar that allows you to search through the RPI collection and all its hundreds of thousands of digital and print resources."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "Under the search bar are some search tools you can use to refine your search. For example, the ‘Reserves’ tag allows you to search through texts that have been reserved by instructors for their classes."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "Another key library tool can be found on the ‘Quick Links’ list below the search bar. Look for the ‘Subject Guides’ link. This is usually a good starting point for your research."
+		},
+		{
+			"type": "text question",
+			"image": "wells_default",
+			"text": "Let’s give this library ‘Quick Search’ a try. Search for the only journal article I wrote in English that the Folsom library has access to. When you find it, input the title.",
+			"answer": "Note on Japanese Syballaries",
+			"wrong": "Not quite, try again."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "You found it, well done.  What are you waiting for – let the quest begin!"
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "Did you know that Folsom library has thousands of pages of sheet music?  More than 7,000 DVDs including popular films?  3,600 vinyl records?  There are many library resources we cannot introduce you to in this short quest. Make time to explore the library to find all its secrets!"
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "To connect with your next Super Searcher, go to the drawing of the first steel-wire suspension bridge."
+		},
+		{
+			"type": "dialogue",
+			"image": "roebling_default",
+			"text": "Oh, I’m sorry. I was just looking at my father’s plans. You know, I built this bridge. Well… not alone. First, I helped my father and then my wife Emily took over after I got “the bends” or decompression sickness. If you don’t know what that is, you can look it up!"
+		},
+		{
+			"type": "dialogue",
+			"image": "roebling_default",
+			"text": "Enough about me, though.  You have a quest to complete - as do I."
+		},
+		{
+			"type": "dialogue",
+			"image": "roebling_default",
+			"text": "Can you help me search for my old thesis, the one I wrote while I was at RPI?  I want to see what changes I might make to the structure."
+		},
+		{
+			"type": "text question",
+			"image": "roebling_default",
+			"text": "I think it is stored on microfilm. When you find it, take a look at how we used to write our theses - way back when. And let me know which roll it is stored on so I know where to find it.",
+			"answer": "Roll 3||3||three",
+			"wrong": "Not quite, try again."
+		},
+		{
+			"type": "dialogue",
+			"image": "roebling_default",
+			"text": "Ah, you found it!"
+		},
+		{
+			"type": "qr question",
+			"image": "roebling_default",
+			"text": "And I already see room for improvement! Now, I challenge you to get a book from my personal collection in the archives by going to the ‘Institute Archives’ page on the main Library website. The title is something like “Artistic bridge design”. Can you scan the QR code on the book for me?",
+			"answer": "target_9",
+			"wrong": "I don't think that is what I meant, try and find it somewhere else"
+		},
+		{
+			"type": "text question",
+			"image": "roebling_default",
+			"text": "Good, good. Now I think I will need a more recent book on bridge design.  Can you find a book published between 2016 or 2017 located in Folsom Library, and give me the call number?",
+			"answer": "TG300 .T66 2017 || TG400 .I57 2016",
+			"wrong": "Not quite. Remember to enter the call number exactly as you see it."
+		},
+		{
+			"type": "dialogue",
+			"image": "roebling_default",
+			"text": "This will do nicely. Thank you."
+		},
+		{
+			"type": "dialogue",
+			"image": "roebling_default",
+			"text": "Oh, before I forget! I owe you a clue to help you find New York State…"
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "The Library of Alexandria, one of the most famous libraries of the ancient world, held more than 500,000 papyrus rolls. Its purpose was to collect and secure all the literary writings from everywhere, and to record and organize them in one place."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "The next Super Searcher went to RPI during the 1940’s, during WWII. At that time, online resources were still decades away. To find her, search the library for images of the campus from way back when..."
+		},
+		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "Nice to meet you. Things have sure changed since I was here in the ‘40s. You know, I never did like research much, but if Folsom had been around when I was here, things might have been different."
+		},
+		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "With such incredible resources at your fingertips, I’m sure you will have an easier time of it than me! Let me introduce you to the wonderful databases RPI has access to…But first, locate a library computer."
+		},
+		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "Here we are! When you’re on the main RPI library website, look for a tab labeled ‘Databases’, it’s under the main search bar. Every database the library has access to will be listed here."
+		},
+		{
+			"type": "text question",
+			"image": "graham_default",
+			"text": "Use Academic Search Premiere to search for the article “Production Cost-Efficiency Relation for Room Air Conditioners and Its Economic and Environmental Impact”.  When you find it, give me the journal name and volume number.",
+			"answer": "Journal of Energy Resources Technology, Vol. 139",
+			"wrong": "Hm, not quite. Remember to give me the name and volume number."
+		},
+		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "That's it, thank you!"
+		},
+		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "An important part of research is citing your sources. Luckily, there is a library resource to help with that!  Return to the main library page and find the ‘Citation/Copyright’ tab that leads to the ‘Cite’ page. Look for the ‘Style Guides,’ where you can get assistance with different citation formats."
+		},
+		{
+			"type": "text question",
+			"image": "graham_default",
+			"text": "How many style guides did you find there?",
+			"answer": "9",
+			"wrong": "Not quite, try again."
+		},
+		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "Yes! Very good"
+		},
+		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "There’s newspaper article I need to locate. Can you search the A-Z databases for me, please?"
+		},
+		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "The title is  “How Bad is Your Air Conditioner for the Planet?”  I believe it’s a New York Times story."
+		},
+		{
+			"type": "text question",
+			"image": "graham_default",
+			"text": "When you find it, can you tell me the name of the company working on cooling replacements for HFCs to reduce greenhouse gases? Here's a hint: Search Gale General OneFile for the New York Times to locate the digital article.",
+			"answer": "Honeywell",
+			"wrong": "Hm, that's not quite right. Remember to use Gale General OneFile."
+		},
+		{
+			"type": "text question",
+			"image": "graham_default",
+			"text": "You found it!  One last question: For an academic research paper, which of these databases is more likely to be considered a source of peer reviewed or scholarly articles?",
+			"answer": "Academic Search Premier",
+			"wrong": "Not quite."
+		},
+		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "Very good! Scholarly or peer reviewed articles go through a more intense vetting process, and are less likely to include errors than articles in popular journals or newspapers."
+		},
+		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "Before I forget, here’s my clue to help you find New York State in Folsom Library."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "Some of the earliest known libraries were in Southwest Asia, around 5,000 years ago, and held large clay tablets with titles carved on edges that faced outward  – like the spines of our books today.  The tradition of book collection in China dates back to the Zhou dynasty."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "The RPI Library wasn't always in this building, where you are standing now. To find your next Super Searcher you must seek the photo of the library students used before this one was built…"
+		},
+		{
+			"type": "text question",
+			"image": "servoss_default",
+			"text": "Oh, hello! Maybe you can help me locate my thesis, on methyl borate? I can’t remember what I named it and having a hard time looking it up. Could you find the title, please?",
+			"answer": "Entropy Values for Methyl Borate and Some Related Boron Compounds",
+			"wrong": "That's not quite it. Try again."
+		},
+		{
+			"type": "qr question",
+			"image": "servoss_default",
+			"text": "Yes - that’s it!  I wrote that a long time ago and I’d really like help finding some new research on the subject. I believe the library has a book on boron-nitrogen compounds. Can you look up the call number, then find it in the library stacks and scan the QR code?",
+			"answer": "target_10",
+			"wrong": "Not quite the book I meant. Keep looking!"
+		},
+		{
+			"type": "text question",
+			"image": "servoss_default",
+			"text": "Hmm, it’s a little out of date. Could you find me a more recent book on this topic, say, 2015?  An ebook is fine, just tell me the author.",
+			"answer": "Steudel Ralf",
+			"wrong": "Not what I was looking for. Remember to search Boron-Nitrogen compounds."
+		},
+		{
+			"type": "dialogue",
+			"image": "servoss_default",
+			"text": "How can we know if an article or book is scholarly or whether it will be useful? Colorado State University’s library website lists criteria that can help you figure this out."
+		},
+		{
+			"type": "dialogue",
+			"image": "servoss_default",
+			"text": "Go to the ‘Cite’ page on the RPI site under ‘Choosing Appropriate Sources’ and you will find the link the CSU’s evaluation chart."
+		},
+		{
+			"type": "text question",
+			"image": "servoss_default",
+			"text": "Once there, take a look at how researchers evaluate sources. List two of the criteria a researcher can use to evaluate whether a book will be useful to them.",
+			"answer": "accept",
+			"wrong": "Not quite, try again."
+		},
+		{
+			"type": "dialogue",
+			"image": "servoss_default",
+			"text": "Well done! I suppose you would like your next clue to locate NYS in the library?  Good luck on your quest..."
+		},
+		{
+			"type": "text question",
+			"image": "wells_default",
+			"text": "I see you have earned all the clues. Excellent!  Now, find New York State here in the Folsom Library. And when you find it, tell me what year the state was brought to the library.",
+			"answer": "1978",
+			"wrong": "Still lost? Here's another hint. New York is made of steel."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "Congratulations!  You found New York State!  Sometimes the very thing you’re searching is hiding right under your nose.  No doubt, research is a difficult and trying process, but it is also rewarding. We like to think of research as a series of mysteries to be solved on the quest for new knowledge."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "Now you know about some of the treasures here in Folsom Library, and how to locate, evaluate, and cite them.  But you’ve only scratched the surface!  Good research takes time."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "As you begin to acquire these lifelong learning skills, you will be surprised at what you can discover through and in the library.  Now, go forth and make your MARQ on the world!"
+		}
+	]
+}

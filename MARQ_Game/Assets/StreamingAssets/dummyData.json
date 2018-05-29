@@ -1,0 +1,69 @@
+{
+	"Items": [{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ac ipsum ut nisl ultrices cursus. Nulla vel accumsan dui. Quisque vehicula ornare odio id vehicula. Nunc ornare pretium molestie. Duis laoreet vel diam vitae congue. Integer ornare quis nunc non viverra. Phasellus dignissim cursus felis, in vestibulum nisl facilisis ut."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "text2"
+		},
+		{
+			"type": "text question",
+			"image": "servoss_default",
+			"text": "How many steps are there in forming a research question?",
+			"answer": "4",
+			"wrong": "I don't think that is quite right, try again."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "correct answer"
+		},
+		{
+			"type": "text question",
+			"image": "graham_default",
+			"text": "Could you find an article called “Production Cost-Efficiency Relation for Room Air Conditioners and Its Economic and Environmental Impact” on the Academic Search Premier database and tell me what journal it was published in?",
+			"answer": "Journal of Energy Resources Technology",
+			"wrong": "not quite, try this"
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "correct answer"
+		},
+		{
+			"type": "qr question",
+			"image": "servoss_default",
+			"text": "Can you find my thesis?",
+			"answer": "70_target",
+			"wrong": "I don't think that is what I meant, try and find it somewhere else"
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "correct answer"
+		},
+		{
+			"type": "cite question",
+			"image": "wells_default",
+			"text": "On the main page, go to the ‘Citation/Copyright’ tab, and go to the ‘Citation and Style Guides’ section. Using this style guide and your searching skills to find an article from the New York Times called “How Bad Is Your Air-Conditioner for the Planet?” on the library database, and give me the citation in APA format.",
+			"answer": {
+				"author first initial": "T",
+				"author last": "Schlossberg",
+				"title": "How Bad Is Your Air-Conditioner for the Planet?",
+				"month": "Aug",
+				"day": 9,
+				"year": 2016,
+				"newspaper title": "NY Times||New York Times"
+			},
+			"wrong": "Make sure you input all the information correctly"
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "correct answer"
+		}
+	]
+}
