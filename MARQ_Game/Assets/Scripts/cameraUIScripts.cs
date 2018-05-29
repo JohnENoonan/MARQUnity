@@ -20,7 +20,8 @@ public class cameraUIScripts : MonoBehaviour {
         
         Camera.main.enabled = true;
         GameControl.control.getEvent(3).printObject();
-        GameControl.control.gameObject.SetActive(true);       
+        // toggle main menu on
+        GameControl.control.gameObject.transform.GetChild(0).gameObject.SetActive(true);      
 
     }
 }

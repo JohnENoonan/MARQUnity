@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class spin : MonoBehaviour
+public class rotateModel : MonoBehaviour
 {
 
     public float speed = 50f;

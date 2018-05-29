@@ -14,7 +14,7 @@ public class GameControl : MonoBehaviour {
 
     public static GameControl control; // singleton
     public int team; // tema number used for ordering events
-    private string flowFilename = "dummyData.json";
+    private string flowFilename = "script.json";
     private string cluesFliename = "clues.json";
     GameEventCollection events; // array of events that will occur
     private int index = 0; // index in the array of events
@@ -26,6 +26,7 @@ public class GameControl : MonoBehaviour {
     public bool isWrong = false;
     int answerIndex; // index of the question that needs to be answered
     List<string> badges;
+    private bool firstTime = true;
     
 
 
@@ -38,8 +39,8 @@ public class GameControl : MonoBehaviour {
     // get the contents of filename, return as string
     private string getJSON(ref string filename)
     {
-        string path = Application.dataPath + "/Data/" + filename;
-        //Debug.Log("File path is " + path);
+        string path = Application.persistentDataPath + "/Data/" + filename;
+        Debug.Log("File path is " + path);
         if (File.Exists(path))
         {
             return File.ReadAllText(path);
@@ -63,7 +64,7 @@ public class GameControl : MonoBehaviour {
             Debug.Log("Hard coded team to be 0");
         }
         // load data from file
-        events = JsonUtility.FromJson<GameEventCollection>(getJSON(ref flowFilename));
+        events = JsonUtility.FromJson<GameEventCollection>(JsonHelper.getFileString(flowFilename));
         // load reapeat UI btn
         Transform canvas = GameObject.Find("Canvas").transform;
         repeat = canvas.GetChild(4).gameObject;
@@ -94,6 +95,11 @@ public class GameControl : MonoBehaviour {
         if (control == null)
         { // if this instance is the first
             Debug.Log("Made the one and only version of GameControl");
+            if (firstTime)
+            {
+                firstTime = false;
+                PlayerPrefs.SetInt("index", 0);
+            }
             control = this;
             PlayerPrefs.SetInt("index", 0);
             loadData();
@@ -114,7 +120,7 @@ public class GameControl : MonoBehaviour {
         // set values
         if (PlayerPrefs.HasKey("index"))
         {
-            Debug.Log("index is: " + PlayerPrefs.GetString("index"));
+            Debug.Log("index is: " + PlayerPrefs.GetInt("index"));
             index = PlayerPrefs.GetInt("index");
             PlayerPrefs.DeleteKey("index");
         }

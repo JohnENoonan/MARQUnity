@@ -10,19 +10,27 @@ public class VuforiaValidation {
 
     public VuforiaValidation()
     {
-        string path = Application.dataPath + "/Data/badges.txt.txt" ;
-        //Debug.Log("File path is " + path);
-        if (File.Exists(path))
+        //get badge data
+        string badgeData = JsonHelper.getFileString("badges.txt");
+        string[] data = badgeData.Split('\n');
+        foreach (string line in data)
         {
-            map = new Hashtable();
-            string[] data = File.ReadAllLines(path);
- 
-            parseToMap(data);
+            Debug.Log("line in badges: " + line);
         }
-        else
-        {
-            Debug.LogError("Could not find file \"badges\"");
-        }
+        parseToMap(data);
+        //string path = Application.streamingAssetsPath + "/badges.txt.txt" ;
+        ////Debug.Log("File path is " + path);
+        //if (File.Exists(path))
+        //{
+        //    map = new Hashtable();
+        //    string[] data = File.ReadAllLines(path);
+            
+        //    parseToMap(data);
+        //}
+        //else
+        //{
+        //    Debug.LogError("Could not find file \"badges\"");
+        //}
     }
 
     private void parseToMap(string[] data)

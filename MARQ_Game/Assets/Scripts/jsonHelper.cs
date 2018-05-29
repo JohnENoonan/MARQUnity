@@ -2,32 +2,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public static class JsonHelper
 {
-    public static T[] FromJson<T>(string json)
+    // regardless of what is environment return data from file as string
+    public static string getFileString(string filename)
     {
-        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(json);
-        return wrapper.Items;
-    }
+        string filePath = Application.streamingAssetsPath + "/" + filename;
+        Debug.Log("attempting to open " + filePath);
+        string jsonString;
 
-    public static string ToJson<T>(T[] array)
-    {
-        Wrapper<T> wrapper = new Wrapper<T>();
-        wrapper.Items = array;
-        return JsonUtility.ToJson(wrapper);
-    }
+        if (Application.platform == RuntimePlatform.Android) //Need to extract file from apk first
+        {
+            WWW reader = new WWW(filePath);
+            while (!reader.isDone) { }
 
-    public static string ToJson<T>(T[] array, bool prettyPrint)
-    {
-        Wrapper<T> wrapper = new Wrapper<T>();
-        wrapper.Items = array;
-        return JsonUtility.ToJson(wrapper, prettyPrint);
-    }
-
-    [Serializable]
-    private class Wrapper<T>
-    {
-        public T[] Items;
+            jsonString = reader.text;
+        }
+        else
+        {
+            jsonString = File.ReadAllText(filePath);
+        }
+        return jsonString;
     }
 }

@@ -35,15 +35,20 @@ public class menuDropdownControls : MonoBehaviour {
 	// onclick camera btn
     public void gotoCamera()
     {
-        //Debug.Log(Camera.main.name +" : " + Camera.main.depth);
-        //Camera.main.enabled = false;
-        
         // start vuforia
         VuforiaRuntime.Instance.InitVuforia();
         // write needed data
         PlayerPrefs.SetInt("index", GameControl.control.getIndex());
-        // set main to inactive
-        GameControl.control.gameObject.SetActive(false);
+        if (GameControl.control.getEvent(GameControl.control.getIndex()).type != "qr question")
+        {
+            PlayerPrefs.DeleteKey("answer");
+        }
+        else
+        {
+            PlayerPrefs.SetString("answer", GameControl.control.getEvent(GameControl.control.getIndex()).answer);
+        }
+        // set main to inactive, note this script is attached to canvas
+        gameObject.SetActive(false);
         // go to camera scene
         SceneManager.LoadScene("cameraScene");
     }
@@ -53,11 +58,21 @@ public class menuDropdownControls : MonoBehaviour {
         int i = GameControl.control.getIndex();
         while (i > 0) // find first instance of not dialogue
         {
+            string oldSS = GameControl.control.getEvent(i).image.Split('_')[0];
             i--;
+            // if instance is not dialogue
             if (GameControl.control.getEvent(i).type != "dialogue")
             {
                 break;
             }
+            string newSS = GameControl.control.getEvent(i).image.Split('_')[0];
+            // if has gone back to a previous searcher
+            if (oldSS != newSS)
+            {
+                break;
+            }
+
+
         }
         if (i != 0) { i++; } // move one past to get to dialogue
         // update content
@@ -92,6 +107,7 @@ public class menuDropdownControls : MonoBehaviour {
         }
 
     }
+
 
 
 

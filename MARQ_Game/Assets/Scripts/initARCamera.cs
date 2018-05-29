@@ -10,13 +10,22 @@ public class initARCamera : MonoBehaviour {
         CameraDevice.Instance.Start();
         //gameObject.GetComponent<VuforiaBehaviour>().enabled = true;
         //gameObject.SetActive(true);
-        foreach (TrackableBehaviour tb in TrackerManager.Instance.GetStateManager().GetTrackableBehaviours())
-        {
-            Debug.Log("Trackable with name " + tb.TrackableName + " found");
-            // add behavior script
-            tb.gameObject.AddComponent<customVuforiaEventHandler>();
-            // Add MeshCollider to tb.gameObject
-        }
+        // creat badge geo
+        //Mesh holderMesh = new Mesh();
+        //ObjImporter newMesh = new ObjImporter();
+        //holderMesh = newMesh.ImportFile("C:/Users/cvpa2/Desktop/ng/output.obj");
+
+        //MeshRenderer renderer = gameObject.AddComponent<MeshRenderer>();
+        //MeshFilter filter = gameObject.AddComponent<MeshFilter>();
+        //filter.mesh = holderMesh;
+        //foreach (TrackableBehaviour tb in TrackerManager.Instance.GetStateManager().GetTrackableBehaviours())
+        //{
+        //    Debug.Log("Trackable with name " + tb.TrackableName + " found");
+        //    // add behavior script
+        //    tb.gameObject.AddComponent<customVuforiaEventHandler>();
+        //    //tb.gameObject.transform.ch
+        //    // Add MeshCollider to tb.gameObject
+        //}
     }
 	
 }

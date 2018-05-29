@@ -19,7 +19,8 @@ public class customVuforiaEventHandler : DefaultTrackableEventHandler{
     override protected void OnTrackingFound()
     {
         base.OnTrackingFound();
-
+        //TODO
+        // instead of each one having its own validator make one validator and let it do work
         // handle events for scanning
         validator.handleScan(mTrackableBehaviour.TrackableName);
     }

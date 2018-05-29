@@ -32,6 +32,10 @@ public class GameEvent
             {
                 return true; 
             }
+            else if (ans == "accept") // return true if all answers are accepted
+            {
+                return true;
+            }
         }
         return false;
     }
