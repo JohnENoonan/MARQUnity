@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
 
+/*
+    This script is attached to the canvas object in mainMenuScene 
+*/
 public class menuDropdownControls : MonoBehaviour {
 
     GameObject dropPanel; // panel that houses all the buttons beside the initial one
@@ -17,9 +20,7 @@ public class menuDropdownControls : MonoBehaviour {
 	void Awake () {
         // get drop down panel
         GameObject tempobj = gameObject.transform.GetChild(3).gameObject;
-        //Debug.Log("menubar = " + tempobj.name);
         dropPanel = tempobj.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
-        //Debug.Log("panel = " + dropPanel.name);
         // get question elements
         questionPanel = gameObject.transform.GetChild(5).gameObject;
         textInput = questionPanel.transform.GetChild(0).gameObject;
@@ -30,8 +31,8 @@ public class menuDropdownControls : MonoBehaviour {
     public void toggleMenuPanel()
     {
         dropPanel.SetActive(!dropPanel.activeSelf);
-        GameObject dropbtn = dropPanel.transform.parent.gameObject;
     }
+
 	// onclick camera btn
     public void gotoCamera()
     {
@@ -52,7 +53,8 @@ public class menuDropdownControls : MonoBehaviour {
         // go to camera scene
         SceneManager.LoadScene("cameraScene");
     }
-    // onclick repeat btn
+
+    // onclick repeat btn, go back to first dialogue element leading to the question
     public void repeatDialogue()
     {
         int i = GameControl.control.getIndex();
@@ -71,8 +73,6 @@ public class menuDropdownControls : MonoBehaviour {
             {
                 break;
             }
-
-
         }
         if (i != 0) { i++; } // move one past to get to dialogue
         // update content
@@ -92,6 +92,7 @@ public class menuDropdownControls : MonoBehaviour {
         // if correct
         if (GameControl.control.validateAnswer(textobj.text))
         {
+            // move to next event and update UI
             GameControl.control.setIndex(GameControl.control.getIndex() + 1);
             GameControl.control.setUIElements();
             // set text input to inactive
@@ -105,10 +106,5 @@ public class menuDropdownControls : MonoBehaviour {
             GameControl.control.setDialogue(GameControl.control.getEvent(GameControl.control.getIndex()).wrong);
             GameControl.control.isWrong = true;
         }
-
     }
-
-
-
-
 }
