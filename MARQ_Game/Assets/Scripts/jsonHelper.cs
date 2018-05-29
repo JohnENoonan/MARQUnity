@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
+/*
+ * This static class has methods to aid reading files. Can be used for more than just JSON
+*/
 public static class JsonHelper
 {
     // regardless of what is environment return data from file as string
