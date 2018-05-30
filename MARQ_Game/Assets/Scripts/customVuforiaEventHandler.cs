@@ -7,12 +7,12 @@ using Vuforia;
 public class customVuforiaEventHandler : DefaultTrackableEventHandler{
 
 
-    VuforiaValidation validator;
+    //VuforiaValidation validator;
 
     protected override void Start()
     {
         base.Start();
-        validator = new VuforiaValidation();
+        //validator = new VuforiaValidation();
     }
 
 
@@ -22,7 +22,9 @@ public class customVuforiaEventHandler : DefaultTrackableEventHandler{
         //TODO
         // instead of each one having its own validator make one validator and let it do work
         // handle events for scanning
-        validator.handleScan(mTrackableBehaviour.TrackableName);
+        Debug.Log("About to call handlescan from controller");
+        CameraControl.control.validator.handleScan(mTrackableBehaviour.TrackableName);
+        //validator.handleScan(mTrackableBehaviour.TrackableName);
     }
 
 }

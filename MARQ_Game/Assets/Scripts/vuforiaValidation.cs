@@ -6,31 +6,21 @@ using UnityEngine;
 
 public class VuforiaValidation {
 
-    Hashtable map;
+    Hashtable map; //maps image name to the badge
 
     public VuforiaValidation()
     {
         //get badge data
         string badgeData = JsonHelper.getFileString("badges.txt");
         string[] data = badgeData.Split('\n');
-        foreach (string line in data)
-        {
-            Debug.Log("line in badges: " + line);
-        }
+        //foreach (string line in data)
+        //{
+        //    Debug.Log("line in badges: " + line);
+        //}
+        map = new Hashtable();
         parseToMap(data);
-        //string path = Application.streamingAssetsPath + "/badges.txt.txt" ;
-        ////Debug.Log("File path is " + path);
-        //if (File.Exists(path))
-        //{
-        //    map = new Hashtable();
-        //    string[] data = File.ReadAllLines(path);
-            
-        //    parseToMap(data);
-        //}
-        //else
-        //{
-        //    Debug.LogError("Could not find file \"badges\"");
-        //}
+        Debug.Log("Game team is " + GameControl.control.team);
+        Debug.Log("Dialogue is: \"" + GameControl.control.getEvent(GameControl.control.getIndex()).text + "\"");
     }
 
     private void parseToMap(string[] data)
@@ -39,6 +29,7 @@ public class VuforiaValidation {
         {
             string[] split = line.Split(',');
             map.Add(split[0], split[1]);
+            //Debug.Log("added map[" + split[0] + "] = " + split[1]);
         }
     }
 
