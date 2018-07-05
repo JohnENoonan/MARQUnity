@@ -135,7 +135,7 @@
 			"type": "text question",
 			"image": "roebling_default",
 			"text": "I think it is stored on microfilm. When you find it, take a look at how we used to write our theses - way back when. And let me know which roll it is stored on so I know where to find it.",
-			"answer": "Roll 3||3||three",
+			"answer": "Roll 3||3||three||roll three",
 			"wrong": "Not quite, try again."
 		},
 		{
@@ -151,10 +151,15 @@
 			"wrong": "I don't think that is what I meant, try and find it somewhere else"
 		},
 		{
+			"type": "dialogue",
+			"image": "roebling_default",
+			"text": "Good, good. Now I think I will need a more recent book on bridge design."
+		},
+		{
 			"type": "text question",
 			"image": "roebling_default",
-			"text": "Good, good. Now I think I will need a more recent book on bridge design.  Can you find a book published between 2016 or 2017 located in Folsom Library, and give me the call number?",
-			"answer": "TG300 .T66 2017 || TG400 .I57 2016",
+			"text": "Can you find a book published between 2016 or 2017 located in Folsom Library, and give me the call number?",
+			"answer": "TG300 .T66 2017||TG400 .I57 2016",
 			"wrong": "Not quite. Remember to enter the call number exactly as you see it."
 		},
 		{
@@ -239,9 +244,14 @@
 			"wrong": "Hm, that's not quite right. Remember to use Gale General OneFile."
 		},
 		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "You found it!"
+		},
+		{
 			"type": "text question",
 			"image": "graham_default",
-			"text": "You found it!  One last question: For an academic research paper, which of these databases is more likely to be considered a source of peer reviewed or scholarly articles?",
+			"text": "One last question: For an academic research paper, which of these databases is more likely to be considered a source of peer reviewed or scholarly articles?",
 			"answer": "Academic Search Premier",
 			"wrong": "Not quite."
 		},
@@ -266,23 +276,38 @@
 			"text": "The RPI Library wasn't always in this building, where you are standing now. To find your next Super Searcher you must seek the photo of the library students used before this one was built…"
 		},
 		{
+			"type": "dialogue",
+			"image": "servoss_default",
+			"text": "Oh, hello! Maybe you can help me locate my thesis, on methyl borate?"
+		},
+		{
 			"type": "text question",
 			"image": "servoss_default",
-			"text": "Oh, hello! Maybe you can help me locate my thesis, on methyl borate? I can’t remember what I named it and having a hard time looking it up. Could you find the title, please?",
+			"text": "I can’t remember what I named it and having a hard time looking it up. Could you find the title, please?",
 			"answer": "Entropy Values for Methyl Borate and Some Related Boron Compounds",
 			"wrong": "That's not quite it. Try again."
 		},
 		{
+			"type": "dialogue",
+			"image": "servoss_default",
+			"text": "Yes - that’s it!"
+		},
+		{
 			"type": "qr question",
 			"image": "servoss_default",
-			"text": "Yes - that’s it!  I wrote that a long time ago and I’d really like help finding some new research on the subject. I believe the library has a book on boron-nitrogen compounds. Can you look up the call number, then find it in the library stacks and scan the QR code?",
+			"text": "I wrote that a long time ago and I’d really like help finding some new research on the subject. I believe the library has a book on boron-nitrogen compounds. Can you look up the call number, then find it in the library stacks and scan the QR code?",
 			"answer": "target_10",
 			"wrong": "Not quite the book I meant. Keep looking!"
 		},
 		{
+			"type": "dialogue",
+			"image": "servoss_default",
+			"text": "Hmm, it’s a little out of date"
+		},
+		{
 			"type": "text question",
 			"image": "servoss_default",
-			"text": "Hmm, it’s a little out of date. Could you find me a more recent book on this topic, say, 2015?  An ebook is fine, just tell me the author.",
+			"text": "Could you find me a more recent book on this topic, say, 2015?  An ebook is fine, just tell me the author.",
 			"answer": "Steudel Ralf",
 			"wrong": "Not what I was looking for. Remember to search Boron-Nitrogen compounds."
 		},
