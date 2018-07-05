@@ -12,16 +12,15 @@ public class cameraUIScripts : MonoBehaviour {
         // turn off vuforia camera
         CameraDevice.Instance.Stop();
         CameraDevice.Instance.Deinit();
-        //gameObject.transform.parent.transform.parent.gameObject.SetActive(false);
-        // re-enable scene
         // go back to main scene
-        PlayerPrefs.DeleteKey("index");
         SceneManager.LoadScene("mainMenuScene");
-        
+        // restart camera
         Camera.main.enabled = true;
         GameControl.control.getEvent(3).printObject();
         // toggle main menu on
-        GameControl.control.gameObject.transform.GetChild(0).gameObject.SetActive(true);      
-
+        GameControl.control.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        GameControl.control.setUIElements();  
     }
+
+    
 }
