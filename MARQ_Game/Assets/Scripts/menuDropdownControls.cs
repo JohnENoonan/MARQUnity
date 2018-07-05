@@ -22,7 +22,7 @@ public class menuDropdownControls : MonoBehaviour {
         GameObject tempobj = gameObject.transform.GetChild(3).gameObject;
         dropPanel = tempobj.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
         // get question elements
-        questionPanel = gameObject.transform.GetChild(5).gameObject;
+        questionPanel = gameObject.transform.GetChild(4).gameObject;
         textInput = questionPanel.transform.GetChild(0).gameObject;
         Debug.Assert(textInput.name == "textInput");
     }
@@ -39,15 +39,15 @@ public class menuDropdownControls : MonoBehaviour {
         // start vuforia
         VuforiaRuntime.Instance.InitVuforia();
         // write needed data
-        PlayerPrefs.SetInt("index", GameControl.control.getIndex());
-        if (GameControl.control.getEvent(GameControl.control.getIndex()).type != "qr question")
-        {
-            PlayerPrefs.DeleteKey("answer");
-        }
-        else
-        {
-            PlayerPrefs.SetString("answer", GameControl.control.getEvent(GameControl.control.getIndex()).answer);
-        }
+        //PlayerPrefs.SetInt("index", GameControl.control.getIndex());
+        //if (GameControl.control.getEvent(GameControl.control.getIndex()).type != "qr question")
+        //{
+        //    PlayerPrefs.DeleteKey("answer");
+        //}
+        //else
+        //{
+        //    PlayerPrefs.SetString("answer", GameControl.control.getEvent(GameControl.control.getIndex()).answer);
+        //}
         // set main to inactive, note this script is attached to canvas
         gameObject.SetActive(false);
         // go to camera scene
@@ -78,16 +78,17 @@ public class menuDropdownControls : MonoBehaviour {
         // update content
         GameControl.control.setIndex(i);
         GameControl.control.setUIElements();
+        GameControl.control.toggleRepeat();
         // hide any question
        questionPanel.SetActive(false);
         // repeat btn is hidden on click from built in
     }
 
+
     // called on submission of text
     public void submitText()
     {
         TMP_InputField textobj = textInput.GetComponent<TMP_InputField>();
-        Debug.Log(textobj.text);
         // validate text
         // if correct
         if (GameControl.control.validateAnswer(textobj.text))

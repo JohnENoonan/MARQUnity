@@ -8,7 +8,7 @@ using TMPro;
 
 /*
  * This class serves as the games state saving device. It is a Singleton Object that must be present
- * in every scene
+ * in every scene. It is used as the parent to perserve main UI
 */
 public class GameControl : MonoBehaviour {
 
@@ -18,38 +18,51 @@ public class GameControl : MonoBehaviour {
     private string cluesFliename = "clues.json";
     GameEventCollection events; // array of events that will occur
     private int index = 0; // index in the array of events
+    private string currAnswer = null; // the answer to the current question, null if no answer is expected
+
     // ui elements that this affects
-    GameObject repeat, dialogue;
+    GameObject repeat, dialogue, nextDialogue;
     Image image;
-    GameObject questionPanel, textInput, qrInput, badgeCount;
+    GameObject questionPanel, textInput, qrInput, badgeCount, badgePanel;
+
     // flags and variables
     public bool isWrong = false;
     int answerIndex; // index of the question that needs to be answered
-    List<string> badges;
-    private bool firstTime = true;
+    List<string> badges; // list of badges players have collected
+    List<string> searchers;
     
-
-
-
-
+    // get and set functions
     public int getIndex() { return index; }
+    public string getCurrAnswer() { return currAnswer; }
     public void setIndex(int i) { index = i; }
     public GameEvent getEvent(int index) { return events.get(index); }
-
-    // get the contents of filename, return as string
-    private string getJSON(ref string filename)
+    public GameEvent getCurrEvent() { return events.get(index); }
+    public void setDialogue(string input)
     {
-        string path = Application.persistentDataPath + "/Data/" + filename;
-        Debug.Log("File path is " + path);
-        if (File.Exists(path))
+        dialogue.GetComponent<TextMeshProUGUI>().SetText(input);
+    }
+    public bool hasBadge(string badgeName){ return badges.Contains(badgeName); }
+
+    public void addBadge(string newBadge){
+        badges.Add(newBadge);
+        Debug.Log("Added " + newBadge + " now has size " + badges.Count);
+        // set badge to unlocked
+        string badgeToLoad = newBadge + "_badge";
+        // get badge to change image for
+        foreach(Transform child in badgePanel.transform)
         {
-            return File.ReadAllText(path);
+            Debug.Log("comparing: " + child.name + " to actual : " + badgeToLoad);
+            if (child.name.Equals(badgeToLoad)){
+                child.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Badges/" + badgeToLoad);
+                break;
+            }
         }
-        else
-        {
-            Debug.LogError("Could not find file \"" + filename + "\"");
-            return "Broken data";
-        }
+    }
+
+    public void addSearcher(string searcher)
+    {
+        searchers.Add(searcher);
+        // handle UI stuff
     }
 
     private void loadData()
@@ -63,21 +76,27 @@ public class GameControl : MonoBehaviour {
             team = 0;
             Debug.Log("Hard coded team to be 0");
         }
-        // load data from file
+        // load event data from file
         events = JsonUtility.FromJson<GameEventCollection>(JsonHelper.getFileString(flowFilename));
         // load reapeat UI btn
         Transform canvas = GameObject.Find("Canvas").transform;
-        repeat = canvas.GetChild(4).gameObject;
+        repeat = canvas.GetChild(2).GetChild(2).gameObject;
         Debug.Assert(repeat.name == "repeat btn");
         // get dialogue elements
         Transform ssGrp = canvas.GetChild(1).gameObject.transform;
         dialogue = ssGrp.GetChild(2).gameObject;
         image = ssGrp.GetChild(1).gameObject.GetComponent<Image>();
+        nextDialogue = canvas.GetChild(2).GetChild(1).gameObject;
         Debug.Assert(dialogue.name == "ss text");
+        Debug.Assert(nextDialogue.name == "next text btn");
         // get counter element
         badgeCount = canvas.GetChild(0).transform.GetChild(2).transform.GetChild(1).
                               transform.GetChild(1).gameObject;
         Debug.Assert(badgeCount.name == "counter");
+        // get badge book
+        Transform badgeGrp = canvas.Find("badge grp");
+        badgePanel = badgeGrp.GetChild(1).GetChild(0).gameObject;
+        Debug.Assert(badgePanel.name == "book bg");
         // get question elements
         questionPanel = GameObject.Find("question panel");
         questionPanel.SetActive(false);
@@ -85,6 +104,7 @@ public class GameControl : MonoBehaviour {
         qrInput = questionPanel.transform.GetChild(1).gameObject;
         // init private variables
         badges = new List<string>();
+        searchers = new List<string>();
         // set ui to first event
         setUIElements();
     }
@@ -95,53 +115,15 @@ public class GameControl : MonoBehaviour {
         if (control == null)
         { // if this instance is the first
             Debug.Log("Made the one and only version of GameControl");
-            if (firstTime)
-            {
-                firstTime = false;
-                PlayerPrefs.SetInt("index", 0);
-            }
             control = this;
-            PlayerPrefs.SetInt("index", 0);
             loadData();
         }
         else if (control != this)
         { // if object is not the one destroy it
             Debug.Log("Going to destroy this");
             Destroy(gameObject);
-            //control.events.printContents();
-            //setUIElements();
         }        
         DontDestroyOnLoad(gameObject);
-    }
-
-    // when this is enabled save anything that came from camera scene
-    void OnEnable()
-    {
-        // set values
-        if (PlayerPrefs.HasKey("index"))
-        {
-            Debug.Log("index is: " + PlayerPrefs.GetInt("index"));
-            index = PlayerPrefs.GetInt("index");
-            PlayerPrefs.DeleteKey("index");
-        }
-        // set received badges
-        if (PlayerPrefs.HasKey("received"))
-        {
-            Debug.Log("has received badges");
-            addBadges(PlayerPrefs.GetString("received"));
-            PlayerPrefs.DeleteKey("received");
-        }
-        if (PlayerPrefs.HasKey("correct"))
-        {
-            handleQRAnswer();
-            PlayerPrefs.DeleteKey("correct");
-        }
-        setUIElements();
-    }
-
-    public bool validateAnswer(string input)
-    {
-        return events.get(index).validateAnswer(input);
     }
 
     // using the index set the text and image elements 
@@ -157,66 +139,24 @@ public class GameControl : MonoBehaviour {
         badgeCount.GetComponent<TMP_Text>().text = badges.Count.ToString() + "/10";
     }
 
-    // helper that sets char dialogue to input
-    public void setDialogue(string input)
-    {
-        dialogue.GetComponent<TextMeshProUGUI>().SetText(input);
-    }
-
-    public void addBadges(string set)
-    {
-        string[] received = set.Split('|');
-        foreach(string newBadge in received)
-        {
-            if (newBadge == "")
-            {
-                continue;
-            }
-            bool doAdd = true;
-            Debug.Log("Trying to add badge: " + newBadge);
-            foreach(string badge in badges)
-            {
-                if (newBadge == badge) {
-                    doAdd = false;
-                    break;
-                }
-            }
-            if (doAdd)
-            {
-                badges.Add(newBadge);
-            }
-            
-        }
-
-        foreach (string badge in badges)
-        {
-            Debug.Log("badge in badges: " + badge);
-        }
-
-
-    }
 
     // used to turn repeat btn off or on
     public void toggleRepeat()
     {
         repeat.SetActive(!repeat.activeSelf);
+        nextDialogue.SetActive(!nextDialogue.activeSelf);
     }
+
+    public bool validateAnswer(string input) { return events.get(index).validateAnswer(input); }
 
     public void handleQRAnswer()
     {
-        // if they go the correct QR code
-        if (PlayerPrefs.GetInt("correct") == 1)
-        {
-            index++; // move to next event
-            setUIElements();
-            toggleRepeat();
-            qrInput.SetActive(false);
-        }
-        else
-        {
-            isWrong = true;
-            setDialogue(getEvent(index).wrong);
-        }
+        setIndex(answerIndex+1);
+        //index++; // move to next event
+        //nextEvent();
+        setUIElements();
+        toggleRepeat();
+        qrInput.SetActive(false);
     }
 
     // this function deals with qr questions and is dealt with inside vuforia's DefaultTrackableEventHandler
@@ -224,12 +164,39 @@ public class GameControl : MonoBehaviour {
     {
         index = answerIndex;
         setUIElements();
-        PlayerPrefs.SetString("answer", control.getEvent(index).answer);
+    }
+
+    public void prepareQuestion()
+    {
+        // show repeat dialogue option
+        repeat.SetActive(true);
+        nextDialogue.SetActive(false);
+        questionPanel.SetActive(true);
+        currAnswer = events.get(index).answer;
+        // show answer boxes according to event
+        switch (events.get(index).type)
+        {
+            // for each event set required element to active
+            case "text question":
+                Debug.Log("text question");
+                textInput.SetActive(true);
+                break;
+            case "cite question":
+                Debug.Log("cite question");
+                break;
+            case "qr question":
+                Debug.Log("qr question, index : " + index);
+                qrInput.SetActive(true);
+                answerIndex = index;
+                handleQRQuestion();
+                break;
+        }
     }
 
     // try and move to next event in queue
     public void nextEvent()
     {
+        
         // if a wrong answer was given and then clicked, show question again
         if (isWrong)
         {
@@ -239,33 +206,29 @@ public class GameControl : MonoBehaviour {
         if (index < 0) { index = 0; }
         else if (events.get(index).type == "dialogue")
         {
+            //TODO handle end of game
             index++; // move to next event
+            // check to see if it is a new super searcher
+            if (index > 0)
+            {
+                string currSearcher = events.get(index).image.Split('_')[0];
+                if (currSearcher !=
+                    events.get(index - 1).image.Split('_')[0])
+                {
+                    // is a new searcher, update bio page
+                    addSearcher(currSearcher);
+                }
+            }
             setUIElements(); // set elements accordingly
             // if it's dialogue all is done, otherwise need to get answer
             if (events.get(index).type != "dialogue")
             {
-                // show repeat dialogue option
-                repeat.SetActive(true);
-                questionPanel.SetActive(true);
-                // show answer boxes according to event
-                switch (events.get(index).type)
-                {
-                    // for each event set required element to active
-                    case "text question":
-                        Debug.Log("text question");
-                        textInput.SetActive(true);
-                        break;
-                    case "cite question":
-                        Debug.Log("cite question");
-                        break;
-                    case "qr question":
-                        Debug.Log("qr question");
-                        qrInput.SetActive(true);
-                        answerIndex = index;
-                        handleQRQuestion();
-                        break;
-                }
+                prepareQuestion();
             }
+        }
+        else if (events.get(index).type != "dialogue")
+        {
+            Debug.Log("Event is " + events.get(index).type + "and was " + events.get(index).type);
         }
     }
 
