@@ -104,10 +104,12 @@ public class CameraControl : MonoBehaviour {
         if (map.ContainsKey(input))
         {
             // if is a new badge to players
-            if (!GameControl.control.hasBadge(map[input].ToString()))
+            string badgename = map[input].ToString();
+            badgename = badgename.Remove(badgename.Length - 1);
+            if (!GameControl.control.hasBadge(badgename))
             {
                 // add badge
-                GameControl.control.addBadge(map[input].ToString());
+                GameControl.control.addBadge(badgename);
                 // give message
                 string msg = "Congratulations, you found a new Badge! For more information go ahead and click it." +
                       "You can now find it in the badge book.";

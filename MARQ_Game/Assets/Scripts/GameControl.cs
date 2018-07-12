@@ -5,6 +5,7 @@ using System.IO;
 using UnityEngine.UI;
 using System;
 using TMPro;
+using System.Text.RegularExpressions;
 
 /*
  * This class serves as the games state saving device. It is a Singleton Object that must be present
@@ -47,18 +48,18 @@ public class GameControl : MonoBehaviour {
         badges.Add(newBadge);
         Debug.Log("Added " + newBadge + " now has size " + badges.Count);
         // set badge to unlocked
-        string badgeToLoad = newBadge + "_badge";
+        string badgeToLoad = string.Format("{0}_{1}", newBadge, "badge");
         // get badge to change image for
-        foreach(Transform child in badgePanel.transform)
+        foreach (Transform child in badgePanel.transform)
         {
-            Debug.Log("comparing: " + child.name + " to actual : " + badgeToLoad);
-            if (child.name.Equals(badgeToLoad)){
+            Debug.Log("comparing: '" + child.name + "' to actual : '" + badgeToLoad + "'");
+            if (child.name.Equals(badgeToLoad, StringComparison.Ordinal)){
                 child.gameObject.GetComponent<Image>().sprite = Resources.Load<Sprite>("Badges/" + badgeToLoad);
                 break;
             }
         }
     }
-
+    
     public void addSearcher(string searcher)
     {
         searchers.Add(searcher);
