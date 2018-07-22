@@ -31,8 +31,6 @@ public class CameraControl : MonoBehaviour {
         string[] data = badgeData.Split('\n');
         map = new Hashtable();
         parseToMap(data);
-        Debug.Log("Game team is " + GameControl.control.team);
-        Debug.Log("Dialogue is: \"" + GameControl.control.getEvent(GameControl.control.getIndex()).text + "\"");
         Debug.Log("Created Camera controller");
         // get UI elements
         Transform canvas = GameObject.Find("Canvas").transform;
@@ -46,10 +44,17 @@ public class CameraControl : MonoBehaviour {
     // helper to init the map from target name to badge name
     private void parseToMap(string[] data)
     {
+        int cnt = 0;
         foreach (string line in data)
         {
             string[] split = line.Split(',');
-            map.Add(split[0], split[1]);
+            string name = split[1];
+            cnt++;
+            if (cnt != data.Length)
+            {
+                name = name.Remove(name.Length - 1);
+            }
+            map.Add(split[0], name);
             //Debug.Log("added map[" + split[0] + "] = " + split[1]);
         }
     }
@@ -105,7 +110,7 @@ public class CameraControl : MonoBehaviour {
         {
             // if is a new badge to players
             string badgename = map[input].ToString();
-            badgename = badgename.Remove(badgename.Length - 1);
+            //badgename = badgename.Remove(badgename.Length - 1);
             if (!GameControl.control.hasBadge(badgename))
             {
                 // add badge
@@ -133,7 +138,7 @@ public class CameraControl : MonoBehaviour {
             }
             else
             {
-                // handle incorrect
+                Debug.Log("wrong: " + GameControl.control.getCurrEvent().wrong);
             }
         }
 

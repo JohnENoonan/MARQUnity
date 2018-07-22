@@ -11,16 +11,13 @@ using UnityEngine.UI;
 */
 public class menuDropdownControls : MonoBehaviour {
 
-    GameObject dropPanel; // panel that houses all the buttons beside the initial one
+    public GameObject dropPanel; // panel that houses all the buttons beside the initial one
     //GameObject textInput;
     GameObject questionPanel;
     GameObject textInput;
 
 	// init ui elements
 	void Awake () {
-        // get drop down panel
-        GameObject tempobj = gameObject.transform.GetChild(3).gameObject;
-        dropPanel = tempobj.transform.GetChild(0).gameObject.transform.GetChild(0).gameObject;
         // get question elements
         questionPanel = gameObject.transform.GetChild(4).gameObject;
         textInput = questionPanel.transform.GetChild(0).gameObject;
