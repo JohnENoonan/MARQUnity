@@ -168,7 +168,7 @@
 			"text": "This will do nicely. Thank you."
 		},
 		{
-			"type": "dialogue",
+			"type": "clue",
 			"image": "roebling_default",
 			"text": "Oh, before I forget! I owe you a clue to help you find New York State…"
 		},
@@ -302,7 +302,7 @@
 		{
 			"type": "dialogue",
 			"image": "servoss_default",
-			"text": "Hmm, it’s a little out of date"
+			"text": "Hmm, it’s a little out of date."
 		},
 		{
 			"type": "text question",
