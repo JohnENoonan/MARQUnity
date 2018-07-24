@@ -243,8 +243,14 @@ public class GameControl : MonoBehaviour {
             index++; // move to next event
             // check to see if it is a new super searcher
             setUIElements(); // set elements accordingly
-            // if it's dialogue all is done, otherwise need to get answer
-             // if clue flip correct puzzle piece, show content
+                             // if it's dialogue all is done, otherwise need to get answer
+            // if it was a clue take away signs
+            if (events.get(index - 1).type == "clue")
+            {
+                contentBox.SetActive(false);
+                cluePrompt.SetActive(false);
+            }
+            // if clue flip correct puzzle piece, show content
             if (events.get(index).type == "clue")
             {
                 handleClue();
