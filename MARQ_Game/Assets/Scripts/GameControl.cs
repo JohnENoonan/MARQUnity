@@ -16,14 +16,15 @@ public class GameControl : MonoBehaviour {
     public static GameControl control; // singleton
     public int team; // tema number used for ordering events
     private string flowFilename = "script.json";
-    private string cluesFliename = "clues.json";
+    private int clueCount = 0;
     GameEventCollection events; // array of events that will occur
     private int index = 0; // index in the array of events
     private string currAnswer = null; // the answer to the current question, null if no answer is expected
 
     // ui elements that this affects
     public GameObject repeat, dialogue, nextDialogue, questionPanel, 
-                      textInput, qrInput, badgeCount, badgePanel, bioButtons;
+                      textInput, qrInput, cluePrompt, badgeCount, badgePanel, bioButtons,
+                      contentBox, puzzlePanel;
     Image ssImage, nameTag;
 
     // flags and variables
@@ -171,6 +172,7 @@ public class GameControl : MonoBehaviour {
         setUIElements();
         toggleRepeat();
         qrInput.SetActive(false);
+        contentBox.SetActive(false);
     }
 
     // this function deals with qr questions and is dealt with inside vuforia's DefaultTrackableEventHandler
@@ -180,6 +182,21 @@ public class GameControl : MonoBehaviour {
         setUIElements();
     }
 
+    // set up to give a clue
+    void handleClue()
+    {
+        contentBox.SetActive(true);
+        cluePrompt.SetActive(true);
+        clueCount++;
+        foreach(Transform child in puzzlePanel.transform)
+        {
+            if (child.name.EndsWith(clueCount.ToString()))
+            {
+                child.gameObject.GetComponent<puzzlePieceOnClick>().unlockPiece();
+            }
+        }
+    }
+
     // when a question is ready, init and show related elements needed to answer
     public void prepareQuestion()
     {
@@ -187,6 +204,8 @@ public class GameControl : MonoBehaviour {
         repeat.SetActive(true);
         nextDialogue.SetActive(false);
         questionPanel.SetActive(true);
+        // show blue content box
+        contentBox.SetActive(true);
         currAnswer = events.get(index).answer;
         // show answer boxes according to event
         switch (events.get(index).type)
@@ -218,17 +237,23 @@ public class GameControl : MonoBehaviour {
             isWrong = false;
         }
         if (index < 0) { index = 0; }
-        else if (events.get(index).type == "dialogue")
+        else if (events.get(index).type == "dialogue" || events.get(index).type == "clue") 
         {
             //TODO handle end of game
             index++; // move to next event
             // check to see if it is a new super searcher
             setUIElements(); // set elements accordingly
             // if it's dialogue all is done, otherwise need to get answer
-            if (events.get(index).type != "dialogue")
+             // if clue flip correct puzzle piece, show content
+            if (events.get(index).type == "clue")
+            {
+                handleClue();
+            }
+            else if (events.get(index).type != "dialogue")
             {
                 prepareQuestion();
             }
+           
         }
         else if (events.get(index).type != "dialogue")
         {

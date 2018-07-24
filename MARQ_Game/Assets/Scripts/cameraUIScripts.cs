@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 using Vuforia;
 using UnityEngine.UI;
 
+// script attached to back button in camera scene to reinit main menu scene
+
 public class cameraUIScripts : MonoBehaviour {
 
 	public void backBtn()

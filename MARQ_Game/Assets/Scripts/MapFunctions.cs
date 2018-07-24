@@ -5,8 +5,8 @@ using UnityEngine;
 // this class is attached to the map buttons that select which floor to look at
 public class MapFunctions : MonoBehaviour {
 
-    GameObject floorImg;
-    string floor;
+    GameObject floorImg; // image of the floor map
+    string floor; // name of floor
 
     void Awake()
     {

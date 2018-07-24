@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine.UI;
 
 /*
-    This script is attached to the canvas object in mainMenuScene 
+    This script is attached to the canvas object in mainMenuScene. Used for interactive updates on UI elements
 */
 public class menuDropdownControls : MonoBehaviour {
 
@@ -22,6 +22,20 @@ public class menuDropdownControls : MonoBehaviour {
         questionPanel = gameObject.transform.GetChild(4).gameObject;
         textInput = questionPanel.transform.GetChild(0).gameObject;
         Debug.Assert(textInput.name == "textInput");
+    }
+    
+    // recursive function to set all children to a certain state
+    public void setChildrenActivity(GameObject parent)
+    {
+        bool activity = false;
+        foreach (Transform child in parent.transform)
+        {
+            GameObject cgameobject = child.gameObject;
+            cgameobject.SetActive(activity);
+
+            setChildrenActivity(cgameobject);
+        }
+        parent.SetActive(false);
     }
 
     // when top button is clicked reverse dropdown status
@@ -75,6 +89,7 @@ public class menuDropdownControls : MonoBehaviour {
         // update content
         GameControl.control.setIndex(i);
         GameControl.control.setUIElements();
+        GameControl.control.contentBox.SetActive(false);
         GameControl.control.toggleRepeat();
         // hide any question
        questionPanel.SetActive(false);
@@ -98,6 +113,7 @@ public class menuDropdownControls : MonoBehaviour {
             textInput.SetActive(false);
             // set repeat to inactive
             GameControl.control.toggleRepeat();
+            GameControl.control.contentBox.SetActive(false);
         }
         else // if wrong give wrong answer text
         {

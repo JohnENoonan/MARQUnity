@@ -98,6 +98,7 @@ public class CameraControl : MonoBehaviour {
         {
             ++i;
         }
+        Debug.Log(i.ToString() + " : " + GameControl.control.getEvent(i).text);
         return i;
     }
 
@@ -132,6 +133,7 @@ public class CameraControl : MonoBehaviour {
                 
                 int index = getQRQuestion();
                 Debug.Log("Set index to: " + index);
+                Debug.Log(GameControl.control.getEvent(index).answer + " : " + input);
                 Debug.Assert(GameControl.control.getEvent(index).answer == input);
                 giveFeedback(GameControl.control.getEvent(index+1).text);
                 GameControl.control.handleQRAnswer();

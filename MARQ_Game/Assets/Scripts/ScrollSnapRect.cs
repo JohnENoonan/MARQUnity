@@ -4,6 +4,10 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System.Collections.Generic;
 
+/*
+ * Downloaded code used for siding images. Look up this classes name for doc
+ */
+
 [RequireComponent(typeof(Image))]
 [RequireComponent(typeof(Mask))]
 [RequireComponent(typeof(ScrollRect))]
