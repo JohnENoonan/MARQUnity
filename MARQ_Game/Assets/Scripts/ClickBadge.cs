@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// class attached to the badge geos in camera scene
+// geo must have a collider
 public class ClickBadge : MonoBehaviour {
 
     public GameObject badgeInfo;

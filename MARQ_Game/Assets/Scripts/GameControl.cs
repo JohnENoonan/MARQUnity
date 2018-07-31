@@ -8,32 +8,37 @@ using TMPro;
 using System.Text.RegularExpressions;
 
 /*
- * This class serves as the games state saving device. It is a Singleton Object that must be present
- * in every scene. It is used as the parent to perserve main UI
+ * This class serves as the game's state saving device. It is a Singleton Object that must be present
+ * in every scene. It is used as the parent to perserve main UI. Most events are run throught this.
+ * When in other scripts or objects and you need to call something from this object do:
+ *      GameControl.control.method()
 */
 public class GameControl : MonoBehaviour {
 
+
+////////////// VARIABLES //////////////
     public static GameControl control; // singleton
     public int team; // tema number used for ordering events
     private string flowFilename = "script.json";
-    private int clueCount = 0;
+    private int clueCount = 0; // number of clues recieved
     GameEventCollection events; // array of events that will occur
     private int index = 0; // index in the array of events
     private string currAnswer = null; // the answer to the current question, null if no answer is expected
+    public float minutesClueWait = .1f;
 
-    // ui elements that this affects
+    // ui elements that this affects. These objects should be given in Unity UI
     public GameObject repeat, dialogue, nextDialogue, questionPanel, 
                       textInput, qrInput, cluePrompt, badgeCount, badgePanel, bioButtons,
                       contentBox, puzzlePanel;
-    Image ssImage, nameTag;
+    Image ssImage, nameTag; // images used for representing supersearchers
 
     // flags and variables
-    public bool isWrong = false;
+    public bool isWrong = false; // ifr answer given was wrong
     int answerIndex; // index of the question that needs to be answered
     List<string> badges; // list of badges players have collected
-    List<string> searchers;
-    
-    ///////// get and set functions ////////
+    List<string> searchers; // list of super searchers player has met
+
+////////////// GET AND SET FUNCTIONS //////////////
     // get index that curr event is 
     public int getIndex() { return index; }
     // get answer to most recent answer
@@ -49,6 +54,8 @@ public class GameControl : MonoBehaviour {
     {
         dialogue.GetComponent<TextMeshProUGUI>().SetText(input);
     }
+
+////////////// SEARCHER AND BADGE FUNCTIONS //////////////
     // bool to see if player has a badge based on the name. Must match exactly
     public bool hasBadge(string badgeName){ return badges.Contains(badgeName); }
     // add badge to players collection. Should be called from scan
@@ -88,6 +95,7 @@ public class GameControl : MonoBehaviour {
         return searchers.Contains(searcher);
     }
 
+////////////// INITIALIZATION FUNCTIONA //////////////
     // helper called to grab all needed parts (GameObject) at awake
     private void loadData()
     {
@@ -132,7 +140,7 @@ public class GameControl : MonoBehaviour {
         }        
         DontDestroyOnLoad(gameObject);
     }
-
+////////////// EVENT FUNCTIONS //////////////
     // using the index set the text and image elements 
     public void setUIElements()
     {
@@ -182,18 +190,41 @@ public class GameControl : MonoBehaviour {
         setUIElements();
     }
 
+    private IEnumerator giveTimedClue(GameObject hint, float waitTime)
+    {
+        // wait for event to be unlocked
+        yield return new WaitForSeconds(waitTime);
+        hint.SetActive(true);
+    }
+
     // set up to give a clue
     void handleClue()
     {
         contentBox.SetActive(true);
         cluePrompt.SetActive(true);
         clueCount++;
+        // try and show the new puzzle
         foreach(Transform child in puzzlePanel.transform)
         {
             if (child.name.EndsWith(clueCount.ToString()))
             {
                 child.gameObject.GetComponent<puzzlePieceOnClick>().unlockPiece();
             }
+        }
+        Debug.Log("count: " + clueCount.ToString());
+        // if they have unlocked every clue give option to answer
+        if (clueCount == 3)
+        {
+            Debug.Log("in if");
+            Debug.Log(puzzlePanel.transform.parent.GetChild(1).GetChild(0).GetChild(0).gameObject.name);
+            Debug.Log(puzzlePanel.transform.parent.GetChild(1).gameObject.name);
+            puzzlePanel.transform.parent.GetChild(1).gameObject.SetActive(true); // set buttons active
+            puzzlePanel.transform.parent.GetChild(1).GetChild(0).GetChild(0).gameObject.SetActive(true); // set answer active
+            // set to give cles after timer
+            StartCoroutine(giveTimedClue(puzzlePanel.transform.parent.GetChild(1).
+                           GetChild(0).GetChild(1).gameObject, minutesClueWait * 60));
+            StartCoroutine(giveTimedClue(puzzlePanel.transform.parent.GetChild(1).GetChild(0).
+                           GetChild(2).gameObject, minutesClueWait * 60*1.5f));
         }
     }
 

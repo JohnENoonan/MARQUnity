@@ -22,6 +22,10 @@ public class puzzlePieceOnClick : MonoBehaviour {
     // unlock the puzzle piece 
     public void unlockPiece()
     {
+        if (frontimg == null)
+        {
+            Awake();
+        }
         gameObject.GetComponent<Image>().sprite = frontimg;
     }
 	

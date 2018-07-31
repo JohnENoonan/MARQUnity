@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// attached to badge buttons in badge panel
 public class ClickBadgeInfo : MonoBehaviour {
 
     GameObject badgeInfo, backBtn;
@@ -10,8 +11,8 @@ public class ClickBadgeInfo : MonoBehaviour {
     public void Start()
     {
         gameObject.GetComponent<Button>().onClick.AddListener(badgeOnCLick);
-        badgeInfo = gameObject.transform.parent.Find("badgeInfo").gameObject;
-        backBtn = gameObject.transform.parent.parent.Find("infoBack").gameObject;
+        badgeInfo = gameObject.transform.parent.parent.Find("badgeInfo").gameObject;
+        backBtn = gameObject.transform.parent.parent.parent.Find("infoBack").gameObject;
     }
 
     // on click if it is unlocked show badge info

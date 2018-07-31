@@ -16,7 +16,7 @@ public class menuDropdownControls : MonoBehaviour {
     GameObject questionPanel;
     GameObject textInput;
 
-	// init ui elements
+	// grab panels needed to edit
 	void Awake () {
         // get question elements
         questionPanel = gameObject.transform.GetChild(4).gameObject;
@@ -24,7 +24,7 @@ public class menuDropdownControls : MonoBehaviour {
         Debug.Assert(textInput.name == "textInput");
     }
     
-    // recursive function to set all children to a certain state
+    // function to set all children to false
     public void setChildrenActivity(GameObject parent)
     {
         bool activity = false;
@@ -32,13 +32,11 @@ public class menuDropdownControls : MonoBehaviour {
         {
             GameObject cgameobject = child.gameObject;
             cgameobject.SetActive(activity);
-
-            setChildrenActivity(cgameobject);
         }
         parent.SetActive(false);
     }
 
-    // when top button is clicked reverse dropdown status
+    // when top button is clicked reverse dropdown status 
     public void toggleMenuPanel()
     {
         dropPanel.SetActive(!dropPanel.activeSelf);
@@ -49,26 +47,24 @@ public class menuDropdownControls : MonoBehaviour {
     {
         // start vuforia
         VuforiaRuntime.Instance.InitVuforia();
-        // write needed data
-        //PlayerPrefs.SetInt("index", GameControl.control.getIndex());
-        //if (GameControl.control.getEvent(GameControl.control.getIndex()).type != "qr question")
-        //{
-        //    PlayerPrefs.DeleteKey("answer");
-        //}
-        //else
-        //{
-        //    PlayerPrefs.SetString("answer", GameControl.control.getEvent(GameControl.control.getIndex()).answer);
-        //}
-        // set main to inactive, note this script is attached to canvas
+        // turn off canvas leaving only gameobject container with nothing to show
         gameObject.SetActive(false);
         // go to camera scene
         SceneManager.LoadScene("cameraScene");
     }
 
     // onclick repeat btn, go back to first dialogue element leading to the question
+    // attached to repeat button. If there is currently a wrong answer, just go back to the question
     public void repeatDialogue()
     {
         int i = GameControl.control.getIndex();
+        // if a wrong answer is given reset super searcher text to the question
+        if (GameControl.control.isWrong)
+        {
+            GameControl.control.setDialogue(GameControl.control.getEvent(i).text);
+            GameControl.control.isWrong = false;
+            return;
+        }
         while (i > 0) // find first instance of not dialogue
         {
             string oldSS = GameControl.control.getEvent(i).image.Split('_')[0];
@@ -97,7 +93,7 @@ public class menuDropdownControls : MonoBehaviour {
     }
 
 
-    // called on submission of text
+    // called on submission of text, used in TMP object
     public void submitText()
     {
         TMP_InputField textobj = textInput.GetComponent<TMP_InputField>();
