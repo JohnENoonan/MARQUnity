@@ -17,22 +17,22 @@
 		{
 			"type": "dialogue",
 			"image": "provost_default",
-			"text": "Did you know one of the first university libraries, the al-Qarawiyyin, in Fez, Morocco, is also part of the world's oldest continually operating universities, al-Qarawiyyin University, which opened in 859?"
-		},
-		{
-			"type": "dialogue",
-			"image": "provost_default",
 			"text": "If you can find the description of RPI’s first library, you will find the first Super Searcher…"
 		},
 		{
 			"type": "dialogue",
 			"image": "wells_default",
-			"text": "Good day! Let me introduce you to MARQ. Who or what is MARQ, you might ask? Well, MARQ is a Metaliteracy Augmented Reality Quest game that uses “QR” codes to advance you through the game as you learn to conduct research within these library walls and beyond! And I am Samuel Wells Williams, an RPI alumnus, and your quest leader."
+			"text": "Good day! Let me introduce you to MARQ. Who or what is MARQ, you might ask? Well, MARQ is a Metaliteracy Augmented Reality Quest game that uses “QR” codes to advance you through the game as you learn to conduct research within these library walls and beyond!"
 		},
 		{
 			"type": "dialogue",
 			"image": "wells_default",
-			"text": "MARQ uses QR codes for both required quest objects and extra information. All necessary QR codes will have ______ borders. Badges will be accessible from QR codes with ______ borders."
+			"text": "My name is Samuel Wells Williams and I am an RPI alumnus, but for today I am “Q”, your quest leader."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "MARQ uses QR codes for both required quest objects and extra information. When you see a QR code you can scan it to further quest or unlock valuable information."
 		},
 		{
 			"type": "dialogue",
@@ -42,7 +42,12 @@
 		{
 			"type": "dialogue",
 			"image": "wells_default",
-			"text": "In the menu bar is a map button, press it and a map of the entire library appears!"
+			"text": "On the top left of your screen is the menu bar."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "Inside is the map button, press it and a map of the entire library appears!"
 		},
 		{
 			"type": "dialogue",
@@ -52,7 +57,7 @@
 		{
 			"type": "dialogue",
 			"image": "wells_default",
-			"text": "You are here…and about to embark on your quest to find New York State in the library."
+			"text": "You are currently on the first floor and about to embark on your quest to find New York State in the library."
 		},
 		{
 			"type": "dialogue",
@@ -98,7 +103,7 @@
 			"type": "text question",
 			"image": "wells_default",
 			"text": "Let’s give this library ‘Quick Search’ a try. Search for the only journal article I wrote in English that the Folsom library has access to. When you find it, input the title.",
-			"answer": "Note on Japanese Syballaries",
+			"answer": "Note on Japanese Syllabaries",
 			"wrong": "Not quite, try again."
 		},
 		{
@@ -114,7 +119,7 @@
 		{
 			"type": "dialogue",
 			"image": "wells_default",
-			"text": "To connect with your next Super Searcher, go to the drawing of the first steel-wire suspension bridge."
+			"text": "To connect with your next Super Searcher, go to the drawing of the first steel-wire suspension bridge. There is a piece of the bridge under the picture."
 		},
 		{
 			"type": "dialogue",
@@ -200,9 +205,9 @@
 		{
 			"type": "text question",
 			"image": "graham_default",
-			"text": "Use Academic Search Premiere to search for the article “Production Cost-Efficiency Relation for Room Air Conditioners and Its Economic and Environmental Impact”.  When you find it, give me the journal name and volume number.",
-			"answer": "Journal of Energy Resources Technology, Vol. 139",
-			"wrong": "Hm, not quite. Remember to give me the name and volume number."
+			"text": "Use Academic Search Premiere to search for the article “Production Cost-Efficiency Relation for Room Air Conditioners and Its Economic and Environmental Impact”.  When you find it, give me the journal name.",
+			"answer": "Journal of Energy Resources Technology",
+			"wrong": "Hm, not quite. Remember to give me the name of the journal the article is published in."
 		},
 		{
 			"type": "dialogue",
@@ -225,6 +230,38 @@
 			"type": "dialogue",
 			"image": "graham_default",
 			"text": "Yes! Very good"
+		},
+		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "Now, on the right side of the page, there is the option to cite an article. When you choose this, you will see a citation box pop up on the screen. Choose “cite” and see what pops up! "
+		},
+		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "There are a number of different citation styles, but we’ll use APA this time. Copy down the citation here.  Be sure to enter it exactly as you find it.  Citations follow very specific guidelines."
+		},
+		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "Good work!  Citations are much easier with today’s citation generators."
+		},
+		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "But, the “cite” option isn’t always available. Luckily, there is a library resource to help with that!  Return to the main library page and find the ‘Citation/Copyright’ tab that leads to the ‘Cite’ page. Look for the ‘Style Guides,’ where you can get assistance with different citation formats."
+		},
+		{
+			"type": "text question",
+			"image": "graham_default",
+			"text": "How many style guides did you find there?",
+			"answer": "9||nine",
+			"wrong": "Hm, I'm not so sure about that, try again."
+		},
+		{
+			"type": "dialogue",
+			"image": "graham_default",
+			"text": "Yes!  Very good."
 		},
 		{
 			"type": "dialogue",
@@ -253,7 +290,7 @@
 			"image": "graham_default",
 			"text": "One last question: For an academic research paper, which of these databases is more likely to be considered a source of peer reviewed or scholarly articles?",
 			"answer": "Academic Search Premier",
-			"wrong": "Not quite."
+			"wrong": "Not quite. Try entering the name of one of the datbases you used."
 		},
 		{
 			"type": "dialogue",
@@ -283,9 +320,9 @@
 		{
 			"type": "text question",
 			"image": "servoss_default",
-			"text": "I can’t remember what I named it and having a hard time looking it up. Could you find the title, please?",
+			"text": "I can’t remember what I named it and I'm having a hard time looking it up. Could you find the title, please?",
 			"answer": "Entropy Values for Methyl Borate and Some Related Boron Compounds",
-			"wrong": "That's not quite it. Try again."
+			"wrong": "That's not quite what I mean, try entering the entire name."
 		},
 		{
 			"type": "dialogue",
@@ -308,7 +345,7 @@
 			"type": "text question",
 			"image": "servoss_default",
 			"text": "Could you find me a more recent book on this topic, say, 2015?  An ebook is fine, just tell me the author.",
-			"answer": "Steudel Ralf",
+			"answer": "Steudel Ralf||Ralf||S. Ralf",
 			"wrong": "Not what I was looking for. Remember to search Boron-Nitrogen compounds."
 		},
 		{
@@ -319,7 +356,7 @@
 		{
 			"type": "dialogue",
 			"image": "servoss_default",
-			"text": "Go to the ‘Cite’ page on the RPI site under ‘Choosing Appropriate Sources’ and you will find the link the CSU’s evaluation chart."
+			"text": "Go to the ‘Cite’ page on the RPI site under ‘Choosing Appropriate Sources’ and you will find the link to CSU’s evaluation chart."
 		},
 		{
 			"type": "text question",
@@ -334,21 +371,29 @@
 			"text": "Well done! I suppose you would like your next clue to locate NYS in the library?  Good luck on your quest..."
 		},
 		{
-			"type": "text question",
+			"type": "dialogue",
 			"image": "wells_default",
-			"text": "I see you have earned all the clues. Excellent!  Now, find New York State here in the Folsom Library. And when you find it, tell me what year the state was brought to the library.",
-			"answer": "1978",
-			"wrong": "Still lost? Here's another hint. New York is made of steel."
+			"text": "I see you have earned all the clues. Excellent!  Now, find New York State here in the Folsom Library. And when you find it, tell me what year the state was brought to the library."
 		},
 		{
 			"type": "dialogue",
 			"image": "wells_default",
-			"text": "Congratulations!  You found New York State!  Sometimes the very thing you’re searching is hiding right under your nose.  No doubt, research is a difficult and trying process, but it is also rewarding. We like to think of research as a series of mysteries to be solved on the quest for new knowledge."
+			"text": "Anwser this question in your 'Puzzle Menu'"
 		},
 		{
 			"type": "dialogue",
 			"image": "wells_default",
-			"text": "Now you know about some of the treasures here in Folsom Library, and how to locate, evaluate, and cite them.  But you’ve only scratched the surface!  Good research takes time."
+			"text": "Congratulations!  You found New York State!"
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "Sometimes the very thing you’re searching for is hiding right under your nose.  No doubt, research is a difficult and trying process, but it is also rewarding. We like to think of research as a series of mysteries to be solved on the quest for new knowledge."
+		},
+		{
+			"type": "dialogue",
+			"image": "wells_default",
+			"text": "Now you know about some of the treasures here in Folsom Library, and how to locate, evaluate, and cite them. But you’ve only scratched the surface!  Good research takes time."
 		},
 		{
 			"type": "dialogue",
