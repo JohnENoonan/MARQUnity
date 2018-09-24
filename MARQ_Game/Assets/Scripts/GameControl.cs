@@ -18,13 +18,13 @@ public class GameControl : MonoBehaviour {
 
 ////////////// VARIABLES //////////////
     public static GameControl control; // singleton
-    public int team; // tema number used for ordering events
+    public int team; // team number used for ordering events
     private string flowFilename = "script.json";
     private int clueCount = 0; // number of clues recieved
     GameEventCollection events; // array of events that will occur
     private int index = 0; // index in the array of events
     private string currAnswer = null; // the answer to the current question, null if no answer is expected
-    public float minutesClueWait = .1f;
+    public float minutesClueWait = 2.5f; // number of minutes to wait before giving final anwser clues
 
     // ui elements that this affects. These objects should be given in Unity UI
     public GameObject repeat, dialogue, nextDialogue, questionPanel, 
@@ -33,7 +33,7 @@ public class GameControl : MonoBehaviour {
     Image ssImage, nameTag; // images used for representing supersearchers
 
     // flags and variables
-    public bool isWrong = false; // ifr answer given was wrong
+    public bool isWrong = false; // if answer given was wrong
     int answerIndex; // index of the question that needs to be answered
     List<string> badges; // list of badges players have collected
     List<string> searchers; // list of super searchers player has met
@@ -58,7 +58,7 @@ public class GameControl : MonoBehaviour {
 ////////////// SEARCHER AND BADGE FUNCTIONS //////////////
     // bool to see if player has a badge based on the name. Must match exactly
     public bool hasBadge(string badgeName){ return badges.Contains(badgeName); }
-    // add badge to players collection. Should be called from scan
+    // add badge to players collection. Should be called from scan of QR
     public void addBadge(string newBadge){
         badges.Add(newBadge);
         Debug.Log("Added " + newBadge + " now has size " + badges.Count);
@@ -95,7 +95,7 @@ public class GameControl : MonoBehaviour {
         return searchers.Contains(searcher);
     }
 
-////////////// INITIALIZATION FUNCTIONA //////////////
+////////////// INITIALIZATION FUNCTION //////////////
     // helper called to grab all needed parts (GameObject) at awake
     private void loadData()
     {
@@ -104,7 +104,6 @@ public class GameControl : MonoBehaviour {
         else // can't get pref, but this might be because of testing 
         {
             //TODO this is hard coded for testing, must be updated for game
-            //Debug.LogError("Could not get team attribute");
             team = 0;
             Debug.Log("Hard coded team to be 0");
         }
@@ -114,14 +113,20 @@ public class GameControl : MonoBehaviour {
         Transform canvas = GameObject.Find("Canvas").transform;
         // get dialogue elements
         Transform ssGrp = canvas.GetChild(1).gameObject.transform;
+        Debug.Assert(ssGrp.name == "ss grp");
         ssImage = ssGrp.GetChild(1).gameObject.GetComponent<Image>();
         nameTag = ssImage.transform.GetChild(0).gameObject.GetComponent<Image>();
-        Debug.Log(nameTag.name);
+        Debug.Assert(nameTag.name == "nameTag");
         // init private variables
         badges = new List<string>();
         searchers = new List<string>();
         // set ui to first event
         setUIElements();
+        // init puzzles for clues
+        foreach (Transform child in puzzlePanel.transform)
+        {
+            child.gameObject.GetComponent<puzzlePieceOnClick>().initPuzzlePiece();
+        }
     }
 
     // initialization that enforces singleton and loads data
@@ -158,7 +163,7 @@ public class GameControl : MonoBehaviour {
             }
         }
         // update badge count
-        badgeCount.GetComponent<TMP_Text>().text = badges.Count.ToString() + "/10";
+        badgeCount.GetComponent<TMP_Text>().text = badges.Count.ToString() + "/8";
     }
 
 
@@ -196,8 +201,8 @@ public class GameControl : MonoBehaviour {
         yield return new WaitForSeconds(waitTime);
         hint.SetActive(true);
     }
-
-    // set up to give a clue
+    
+    // set up to give a clue when earned
     void handleClue()
     {
         contentBox.SetActive(true);
@@ -220,12 +225,27 @@ public class GameControl : MonoBehaviour {
             Debug.Log(puzzlePanel.transform.parent.GetChild(1).gameObject.name);
             puzzlePanel.transform.parent.GetChild(1).gameObject.SetActive(true); // set buttons active
             puzzlePanel.transform.parent.GetChild(1).GetChild(0).GetChild(0).gameObject.SetActive(true); // set answer active
-            // set to give cles after timer
+            // set to give clues after timer
             StartCoroutine(giveTimedClue(puzzlePanel.transform.parent.GetChild(1).
                            GetChild(0).GetChild(1).gameObject, minutesClueWait * 60));
             StartCoroutine(giveTimedClue(puzzlePanel.transform.parent.GetChild(1).GetChild(0).
                            GetChild(2).gameObject, minutesClueWait * 60*1.5f));
         }
+    }
+
+    // when you get to the final question remove next button, only move forward
+    // on anwser from puzzle input
+    void prepareFinalQuestion()
+    {
+        Debug.Log("in prepare");
+        //toggleRepeat();
+    }
+
+    // when team has submitted correct final answer
+    public void handleFinalAnswer()
+    {
+        // move to next event
+        setIndex(index + 1);
     }
 
     // when a question is ready, init and show related elements needed to answer
@@ -248,12 +268,17 @@ public class GameControl : MonoBehaviour {
                 break;
             case "cite question":
                 Debug.Log("cite question");
+                //TODO create cite handler
                 break;
             case "qr question":
                 Debug.Log("qr question, index : " + index);
                 qrInput.SetActive(true);
                 answerIndex = index;
                 handleQRQuestion();
+                break;
+            case "final question":
+                Debug.Log("at final question");
+                prepareFinalQuestion();
                 break;
         }
     }

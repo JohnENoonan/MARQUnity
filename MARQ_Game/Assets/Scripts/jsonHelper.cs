@@ -5,7 +5,7 @@ using UnityEngine;
 using System.IO;
 
 /*
- * This static class has methods to aid reading files. Can be used for more than just JSON
+ * This static class has methods to aid reading files. Mostly used to read script. Works when playing on android or testing on PC
 */
 public static class JsonHelper
 {

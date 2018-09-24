@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// class attached to puzzle piece buttons. Has on click functions
+// class attached to puzzle piece buttons in puzzle grp. Has on click functions
 public class puzzlePieceOnClick : MonoBehaviour {
 
-    string name;
+    string number;
     public Sprite frontimg, backimg;
 
 	// Use this for initialization
 	void Awake () {
-        name = gameObject.name.Split('_')[0];
-        frontimg = Resources.Load<Sprite>("Puzzles/" + name + "_front");
-        backimg = Resources.Load<Sprite>("Puzzles/" + name + "_back");
         
+    }
+
+    public void initPuzzlePiece()
+    {
+        number = gameObject.name.Split('_')[0];
+        frontimg = Resources.Load<Sprite>("Puzzles/" + number + "_front");
+        backimg = Resources.Load<Sprite>("Puzzles/" + number + "_back");
+
         gameObject.GetComponent<Button>().onClick.AddListener(onClick);
-        Debug.Log("added listener");
+        Debug.Log(number + " initialized");
     }
 
     // unlock the puzzle piece 
@@ -24,7 +29,7 @@ public class puzzlePieceOnClick : MonoBehaviour {
     {
         if (frontimg == null)
         {
-            Awake();
+            initPuzzlePiece();
         }
         gameObject.GetComponent<Image>().sprite = frontimg;
     }
@@ -35,7 +40,7 @@ public class puzzlePieceOnClick : MonoBehaviour {
         Image img = gameObject.GetComponent<Image>();
         string spriteName = img.sprite.name;
         // if it is unlocked
-        Debug.Log(name + " clicked: " + spriteName);
+        Debug.Log(number + " clicked: " + spriteName);
         if (!spriteName.EndsWith("grey"))
         {
             if (spriteName.EndsWith("front"))

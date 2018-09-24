@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// script attached t obuttons in bio page. Used to display correct image on scroller
+// script attached to buttons in bio page. Used to display correct image on scroller
 public class BioButton : MonoBehaviour {
 
     GameObject frontObj, backObj;

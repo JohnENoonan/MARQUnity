@@ -7,7 +7,8 @@ using System.IO;
 
 /*
  * This class describes events as given by the script. Reads events from the json file and parses keys into appropriate 
- * variables. Each individual GameEvent is one JSON object in the script.
+ * variables. Each individual GameEvent is one JSON object in the script. The structure must match that of the script. Class contains
+ * public vaiables and answer validation function.
  */ 
 
 [Serializable]
@@ -29,7 +30,6 @@ public class GameEvent
         foreach(string ans in answers)
         {
             Debug.Log("comparing input: " + input + " to answer: " + ans);
-            //Debug.Log(input.Length.ToString() + " : " + input.Equals("accept").ToString() + " : " + (input == "accept").ToString());
             if (ans == input) // if answers match it is a correct solution
             {
                 return true; 
@@ -50,6 +50,7 @@ public class GameEvent
 
 // GameEventCollection is an abstraction used to store GameEvents. 
 // This class exist so the parsing from json can be done serialized
+// Entries should not be set as it should be derieved from the script.
 
 [Serializable]
 public class GameEventCollection

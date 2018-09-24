@@ -7,20 +7,17 @@ using TMPro;
 using UnityEngine.UI;
 
 /*
-    This script is attached to the canvas object in mainMenuScene. Used for interactive updates on UI elements
+    This script is attached to the canvas object in mainMenuScene. Used for interactive updates on UI elements mostly independent of GameControl
 */
 public class menuDropdownControls : MonoBehaviour {
 
     public GameObject dropPanel; // panel that houses all the buttons beside the initial one
-    //GameObject textInput;
-    GameObject questionPanel;
-    GameObject textInput;
+    public GameObject questionPanel;
+    public GameObject textInput;
 
-	// grab panels needed to edit
 	void Awake () {
-        // get question elements
-        questionPanel = gameObject.transform.GetChild(4).gameObject;
-        textInput = questionPanel.transform.GetChild(0).gameObject;
+        // check for correct panels
+        Debug.Assert(questionPanel.name == "question panel");
         Debug.Assert(textInput.name == "textInput");
     }
     
@@ -36,7 +33,7 @@ public class menuDropdownControls : MonoBehaviour {
         parent.SetActive(false);
     }
 
-    // when top button is clicked reverse dropdown status 
+    // when dropdown button is clicked reverse dropdown status 
     public void toggleMenuPanel()
     {
         dropPanel.SetActive(!dropPanel.activeSelf);

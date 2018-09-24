@@ -11,9 +11,9 @@ public class CameraControl : MonoBehaviour {
 
     public static CameraControl control;
     Hashtable map; //maps image name to the badge
-    GameObject textObj, imgObj, ssGrp;
+    public GameObject textObj, imgObj, ssGrp;
 
-
+    // enforce singleton
     void Awake()
     {
         if (control == null)
@@ -24,7 +24,6 @@ public class CameraControl : MonoBehaviour {
         { // if object is not the one destroy it
             Destroy(gameObject);
         }
-        //DontDestroyOnLoad(gameObject);
 
         //get badge data
         string badgeData = JsonHelper.getFileString("badges.txt");
@@ -32,12 +31,7 @@ public class CameraControl : MonoBehaviour {
         map = new Hashtable();
         parseToMap(data);
         Debug.Log("Created Camera controller");
-        // get UI elements
-        Transform canvas = GameObject.Find("Canvas").transform;
-        ssGrp = canvas.GetChild(0).Find("ss text bg").gameObject;
         Debug.Assert(ssGrp.name == "ss text bg");
-        textObj = ssGrp.transform.Find("ss text").gameObject;
-        imgObj = ssGrp.transform.Find("ss image").gameObject;
         ssGrp.SetActive(false);
     }
 
@@ -55,7 +49,6 @@ public class CameraControl : MonoBehaviour {
                 name = name.Remove(name.Length - 1);
             }
             map.Add(split[0], name);
-            //Debug.Log("added map[" + split[0] + "] = " + split[1]);
         }
     }
 
@@ -81,16 +74,19 @@ public class CameraControl : MonoBehaviour {
         ssGrp.SetActive(false);
     }
 
+    // give user feedback based on result of QR scan
     public void giveFeedback(string message)
     {
         ssGrp.SetActive(true);
-        //Debug.Log("image is " + GameControl.control.getCurrEvent().image);
+        // load whever current super searcher is to deliver message
         imgObj.GetComponent<Image>().sprite = Resources.Load<Sprite>(
             "CharImages/" + GameControl.control.getCurrEvent().image);
+        // set text to message
         textObj.GetComponent<TextMeshProUGUI>().SetText(message);
         StartCoroutine(fadeMessage());
     }
 
+    // return index of the most recent QR question
     private int getQRQuestion()
     {
         int i = GameControl.control.getIndex();
@@ -111,7 +107,6 @@ public class CameraControl : MonoBehaviour {
         {
             // if is a new badge to players
             string badgename = map[input].ToString();
-            //badgename = badgename.Remove(badgename.Length - 1);
             if (!GameControl.control.hasBadge(badgename))
             {
                 // add badge
@@ -130,49 +125,18 @@ public class CameraControl : MonoBehaviour {
             if (validateAnswer(input))
             {
                 // get the qr question event
-                
                 int index = getQRQuestion();
                 Debug.Log("Set index to: " + index);
                 Debug.Log(GameControl.control.getEvent(index).answer + " : " + input);
                 Debug.Assert(GameControl.control.getEvent(index).answer == input);
                 giveFeedback(GameControl.control.getEvent(index+1).text);
+                // handle correct answer
                 GameControl.control.handleQRAnswer();
             }
             else
             {
-                Debug.Log("wrong: " + GameControl.control.getCurrEvent().wrong);
+                giveFeedback( GameControl.control.getCurrEvent().wrong);
             }
         }
-
-        // if looking for an answer
-        //if (PlayerPrefs.HasKey("answer"))
-        //{
-        //    Debug.Log("answer is " + validateAnswer(input, PlayerPrefs.GetString("answer")));
-        //    if (validateAnswer(input, PlayerPrefs.GetString("answer")))
-        //        PlayerPrefs.SetInt("correct", 1);
-        //}
-        //else if (map.ContainsKey(input)) // see if it is a newfound badge or event
-        //{
-        //    Debug.Log("badge: " + input + " found");
-        //    if ((string)map[input] != "found")
-        //    {
-        //        Debug.Log("badge: " + input + " is new");
-        //        map[input] = "found";
-        //        string badge = "";
-        //        if (PlayerPrefs.HasKey("received"))
-        //        {
-        //            badge = PlayerPrefs.GetString("received");
-        //        }
-        //        PlayerPrefs.SetString("received", badge + '|' + input);
-        //        Debug.Log("badges in playerprefs: " + PlayerPrefs.GetString("received"));
-        //    }
-
-        //}
-        //else
-        //{
-        //    PlayerPrefs.SetInt("correct", 0);
-        //    Debug.Log("QR code is neither the answer nor a badge");
-        //}
     }
-
 }
