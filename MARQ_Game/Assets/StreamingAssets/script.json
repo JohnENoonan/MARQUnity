@@ -217,24 +217,7 @@
 		{
 			"type": "dialogue",
 			"image": "graham_default",
-			"text": "An important part of research is citing your sources. Luckily, there is a library resource to help with that!  Return to the main library page and find the ‘Citation/Copyright’ tab that leads to the ‘Cite’ page. Look for the ‘Style Guides,’ where you can get assistance with different citation formats."
-		},
-		{
-			"type": "text question",
-			"image": "graham_default",
-			"text": "How many style guides did you find there?",
-			"answer": "9",
-			"wrong": "Not quite, try again."
-		},
-		{
-			"type": "dialogue",
-			"image": "graham_default",
-			"text": "Yes! Very good"
-		},
-		{
-			"type": "dialogue",
-			"image": "graham_default",
-			"text": "Now, on the right side of the page, there is the option to cite an article. When you choose this, you will see a citation box pop up on the screen. Choose “cite” and see what pops up! "
+			"text": "Now, on the right side of the page, there is the option to cite an article. When you choose this, you will see a citation box pop up on the screen. Choose “cite” and see what pops up!"
 		},
 		{
 			"type": "dialogue",
@@ -298,7 +281,7 @@
 			"text": "Very good! Scholarly or peer reviewed articles go through a more intense vetting process, and are less likely to include errors than articles in popular journals or newspapers."
 		},
 		{
-			"type": "dialogue",
+			"type": "clue",
 			"image": "graham_default",
 			"text": "Before I forget, here’s my clue to help you find New York State in Folsom Library."
 		},
@@ -339,7 +322,7 @@
 		{
 			"type": "dialogue",
 			"image": "servoss_default",
-			"text": "Hmm, it’s a little out of date."
+			"text": "Oh yes that's definitely it! Unfortunately it seems a bit out-dated."
 		},
 		{
 			"type": "text question",
@@ -366,9 +349,14 @@
 			"wrong": "Not quite, try again."
 		},
 		{
-			"type": "dialogue",
+			"type": "clue",
 			"image": "servoss_default",
-			"text": "Well done! I suppose you would like your next clue to locate NYS in the library?  Good luck on your quest..."
+			"text": "Well done!"
+		},
+		{
+			"type": "clue",
+			"image": "servoss_default",
+			"text": "I suppose you would like your next clue to locate NYS in the library?  Good luck on your quest..."
 		},
 		{
 			"type": "dialogue",
@@ -376,7 +364,7 @@
 			"text": "I see you have earned all the clues. Excellent!  Now, find New York State here in the Folsom Library. And when you find it, tell me what year the state was brought to the library."
 		},
 		{
-			"type": "dialogue",
+			"type": "final question",
 			"image": "wells_default",
 			"text": "Anwser this question in your 'Puzzle Menu'"
 		},
